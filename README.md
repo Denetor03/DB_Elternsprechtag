@@ -3,10 +3,10 @@ Repo für schule
 
 
 - 19.9.22
-  - Teilnehmer und festgelegt wer was macht.
+  - teilnehmer und festgelegt wer was macht.
     - Daniel(frontend)
     - Maurice(doku)
-    - Sam(scripte/DB)
+    - Sam(scripte)
     - Marvin(scripte)
     - Marius(datenbank)
 
