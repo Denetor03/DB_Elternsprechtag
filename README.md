@@ -6,7 +6,7 @@ Repo für schule
   - Teilnehmer und festgelegt wer was macht.
     - Daniel(frontend)
     - Maurice(doku)
-    - Sam(scripte)
+    - Sam(scripte/DB)
     - Marvin(scripte)
     - Marius(datenbank)
 
