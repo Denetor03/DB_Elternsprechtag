@@ -2,7 +2,7 @@
 Repo für schule
 
 
--19.9.22
+- 19.9.22
   - teilnehmer und festgelegt wer was macht
     - Daniel(frontend)
     - Maurice(doku)
