@@ -1,0 +1,25 @@
+/*
+blue: #3a92ff
+gray: #6e6e6e
+dark-gray: #3c3c3c;
+*/
+
+
+body{
+    background-color: #6e6e6e;
+}
+
+#header{
+    position: fixed;
+    top: 0%;
+    width: 100%;
+    background-color: #3a92ff;
+    border-bottom: 10px solid #3c3c3c ;
+
+}
+
+#login-button{
+    background-color: #6e6e6e !important;
+    border: 0px;
+    color: white !important;
+}
