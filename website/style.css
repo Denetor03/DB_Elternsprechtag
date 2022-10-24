@@ -23,3 +23,30 @@ body{
     border: 0px;
     color: white !important;
 }
+
+#loginAsContainer{
+    margin-top: 10%;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#loginAs{
+    background-color: #3a92ff;
+}
+
+#loginAsLinks{
+    background-color: #3c3c3c;
+}
+
+#loginAsLinks a{
+    color: white !important;
+    text-decoration: none;
+}
+
+#loginAsLinks a:hover{
+    border-bottom: 1px solid;
+    border-color: #3a92ff;
+    transition: 0.5s;
+}
