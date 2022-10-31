@@ -1,0 +1,33 @@
+CREATE TABLE tbl_schueler (
+    PK_schueler INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    Klassenkuerzel VARCHAR(255),
+    Geschlecht VARCHAR(255),
+    Vorname VARCHAR(255),
+    Nachname VARCHAR(255)
+    )
+CREATE TABLE tbl_ansprechpartner (
+    PK_ansprechpartner INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    Vorname VARCHAR(255),
+    Nachname VARCHAR(255),
+    Betriebsname VARCHAR(255),
+    `E-Mail` VARCHAR(255),
+    Mobilnummer VARCHAR(255)
+    )
+CREATE TABLE tbl_termin(
+    PK_termin INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    Sprechdauer TIME,
+    Terminbeginn DATETIME,
+    Terminende DATETIME
+    )
+"""""""""""""TEST"""
+CREATE TABLE tbl_ansprechpartner (
+    PK_ansprechpartner INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    Vorname VARCHAR(255),
+    Nachname VARCHAR(255),
+    Betriebsname VARCHAR(255),
+    `E-Mail` VARCHAR(255),
+    Mobilnummer VARCHAR(255)
+    FK_schueler INT,
+    FOREIGN KEY (FK_schueler) REFERENCES tbl_schueler(PK_schueler)
+    )
+" """"" " " " " 
