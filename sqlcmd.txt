@@ -62,3 +62,7 @@ CREATE TABLE tbl_veranstaltung (
     FK_raum INT(255),
     FOREIGN KEY (FK_raum) REFERENCES tbl_raum(PK_raum)
     )
+--------------------noch nicht------------
+CREATE VIEW lehrer_ansicht AS
+SELECT Raumnummer, Sprechdauer, Terminbeginn, Terminende, Vorname, Nachname, Vorname, Nachname
+FROM tbl_raum, tbl_termin, tbl_schueler, tbl_ansprechpartner;
