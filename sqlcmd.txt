@@ -31,3 +31,34 @@ CREATE TABLE tbl_ansprechpartner (
     FOREIGN KEY (FK_schueler) REFERENCES tbl_schueler(PK_schueler)
     )
 " """"" " " " " 
+CREATE TABLE tbl_veranstaltung (
+    PK_veranstaltung INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    Bezeichnung VARCHAR(255),
+    Beginn DATETIME,
+    Ende DATETIME,
+    FK_termin INT(255),
+    FOREIGN KEY (FK_termin) REFERENCES tbl_termin(PK_termin)
+    )
+    CREATE TABLE tbl_lehrkraft (
+    PK_lehrkraft INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    Kuerzel VARCHAR(255),
+    Geschlecht VARCHAR(255),
+    Vorname VARCHAR(255),
+    Nachname VARCHAR(255),
+    `E-Mail` VARCHAR(255),
+    FK_termin INT(255),
+    FOREIGN KEY (FK_termin) REFERENCES tbl_termin(PK_termin)
+    )
+    CREATE TABLE tbl_raum (
+    PK_raum INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    Raumnummer INT(255),
+    FK_lehrkraft INT(255),
+    FOREIGN KEY (FK_lehrkraft) REFERENCES tbl_lehrkraft(PK_lehrkraft)
+    )
+    CREATE TABLE tbl_gebaeude (
+    PK_gebaeude INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    Gebaeudenummer INT(255),
+    Standortbezeichnung VARCHAR(255),
+    FK_raum INT(255),
+    FOREIGN KEY (FK_raum) REFERENCES tbl_raum(PK_raum)
+    )
