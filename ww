@@ -1,0 +1,3 @@
+ALTER TABLE dbo.student 
+add  constraint Fk_empid foreign key(emp_id)
+references dbo.emp(id);
