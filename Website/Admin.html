@@ -23,24 +23,78 @@
     </div>
     <div class="py-5 mt-5 d-flex justify-content-center" id="ansprechpartner">
         <div class="w-50">
-            <form action="SchulleitungVeranstaltungErstellen.php" method="post">
-            <h1>Ansprech partner</h1><hr>
-
-            <div class="d-flex justify-content-between">
-                <label for="bezeichnung">Veranstaltungs Bezeichnung</label>
-                <input type="text" id="bezeichnung">
-            </div>
-            <hr>
-            <div class="d-flex justify-content-between">    
-                <label for="start">Verantstaltungs Datum</label>
-                <input type="date" id="start" name="Start-date">
-            </div>
+            <!-- Schulleitung-->
+            <form action="ErstellenSchulleitung.php" method="post">
+                <h1>Erstellen Schulleitungs account</h1><hr>
+                <!--  VALUES (:PK_schulleitung, :Kuerzel, :Geschlecht, :`E-mail`, :Vorname, :Nachname)");-->
+                <div class="d-flex justify-content-between">
+                    <label for="kuerzel">Kürzel</label>
+                    <input type="text" name="kuerzel" id="kuerzel">
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <label for="geschlecht">Geschlecht</label>
+                    <input type="text" name="geschlecht" id="geschlecht">
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <label for="email">Email</label>
+                    <input type="text" name="email" id="email">
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <label for="vorname">Vorname</label>
+                    <input type="text" name="vorname" id="vorname">
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <label for="nachname">Nachname</label>
+                    <input type="text" name="nachname" id="nachname">
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <button onclick="window.location='SignIn.html'" value="Zurück">Zurück</button>
+                    <button type="submit">Erstellen</button>
+                </div>
+            </form>
             <br>
-            <div class="d-flex justify-content-between">
-                <button onclick="window.location='SignIn.html'" value="Zurück">Zurück</button>
-                <button type="submit">Erstellen</button>
-            </div>
-            <form>
+            <form action="ErstellenSchulleitung.php" method="post">
+                <h1>Erstellen Gebäude</h1><hr>
+                <!--gebäude-->
+                <div class="d-flex justify-content-between">
+                    <label for="gebaeudenr">Gebäude nummer</label>
+                    <input type="text" id="gebaeudenr">
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <label for="bezeichnung">Standort bezeichnung</label>
+                    <input type="text" id="bezeichnung">
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <button onclick="window.location='SignIn.html'" value="Zurück">Zurück</button>
+                    <button type="submit">Erstellen</button>
+                </div>
+            </form>
+            <br>
+            <form action="ErstellenSchulleitung.php" method="post">
+                <h1>Raum erstellung</h1><hr>
+                <!--gebäude-->
+                <div class="d-flex justify-content-between">
+                    <label for="gebaeudenr">Gebäude !select</label>
+                    <input type="text" id="gebaeudenr">
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <label for="bezeichnung">Raumnummer</label>
+                    <input type="text" id="bezeichnung">
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <button onclick="window.location='SignIn.html'" value="Zurück">Zurück</button>
+                    <button type="submit">Erstellen</button>
+                </div>
+            </form>
         </div>
     </div>
 </body>
