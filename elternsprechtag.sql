@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 10. Nov 2022 um 14:18
+-- Erstellungszeit: 24. Nov 2022 um 10:39
 -- Server-Version: 10.4.22-MariaDB
 -- PHP-Version: 8.1.2
 
@@ -20,6 +20,34 @@ SET time_zone = "+00:00";
 --
 -- Datenbank: `elternsprechtag`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Stellvertreter-Struktur des Views `ansprechpartner_informationen`
+-- (Siehe unten für die tatsächliche Ansicht)
+--
+CREATE TABLE `ansprechpartner_informationen` (
+`Vorname Ansprechpartner` varchar(255)
+,`Nachname Ansprechpartner` varchar(255)
+,`Ansprechpartner Mobilnummer` varchar(255)
+,`Vorname Schueler` varchar(255)
+,`Nachname Schueler` varchar(255)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stellvertreter-Struktur des Views `lehrkraft_informationen`
+-- (Siehe unten für die tatsächliche Ansicht)
+--
+CREATE TABLE `lehrkraft_informationen` (
+`Kuerzel` varchar(255)
+,`Geschlecht` varchar(255)
+,`Vorname` varchar(255)
+,`Nachname` varchar(255)
+,`E-Mail` varchar(6)
+);
 
 -- --------------------------------------------------------
 
@@ -46,7 +74,6 @@ CREATE TABLE `tbl_gebaeude` (
   `PK_gebaeude` int(11) NOT NULL,
   `Gebaeudenummer` int(255) DEFAULT NULL,
   `Standortbezeichnung` varchar(255) DEFAULT NULL
-
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -84,7 +111,7 @@ CREATE TABLE `tbl_lehrkraft_termin` (
 
 CREATE TABLE `tbl_raum` (
   `PK_raum` int(11) NOT NULL,
-  `Raumnummer` int(255) DEFAULT NULL,  
+  `Raumnummer` int(255) DEFAULT NULL,
   `FK_gebaeude` int(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -116,7 +143,6 @@ CREATE TABLE `tbl_schulleitung` (
   `E-Mail` varchar(255) DEFAULT NULL,
   `Vorname` varchar(255) DEFAULT NULL,
   `Nachname` varchar(255) DEFAULT NULL
-  
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -132,7 +158,7 @@ CREATE TABLE `tbl_termin` (
   `Terminende` datetime DEFAULT NULL,
   `FK_lehrkraft` int(255) DEFAULT NULL,
   `FK_veranstaltung` int(255) DEFAULT NULL,
-  `FK_ansprechpartner` int(255) DEFAULT NULL  
+  `FK_ansprechpartner` int(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -148,6 +174,52 @@ CREATE TABLE `tbl_veranstaltung` (
   `Ende` datetime DEFAULT NULL,
   `FK_schulleitung` int(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Stellvertreter-Struktur des Views `termin_informationen`
+-- (Siehe unten für die tatsächliche Ansicht)
+--
+CREATE TABLE `termin_informationen` (
+`Veranstaltungs Bezeichnung` varchar(255)
+,`Lehrkraft` varchar(255)
+,`Raumnummer` int(255)
+,`Terminbeginn` datetime
+,`Terminende` datetime
+,`Vorname Ansprechpartner` varchar(255)
+,`Nachname Ansprechpartner` varchar(255)
+,`Ansprechpartner Mobilnummer` varchar(255)
+,`Vorname Schueler` varchar(255)
+,`Nachname Schueler` varchar(255)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur des Views `ansprechpartner_informationen`
+--
+DROP TABLE IF EXISTS `ansprechpartner_informationen`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `ansprechpartner_informationen`  AS SELECT `tbl_ansprechpartner`.`Vorname` AS `Vorname Ansprechpartner`, `tbl_ansprechpartner`.`Nachname` AS `Nachname Ansprechpartner`, `tbl_ansprechpartner`.`Mobilnummer` AS `Ansprechpartner Mobilnummer`, `tbl_schueler`.`Vorname` AS `Vorname Schueler`, `tbl_schueler`.`Nachname` AS `Nachname Schueler` FROM (`tbl_ansprechpartner` join `tbl_schueler` on(`tbl_schueler`.`FK_ansprechpartner` = `tbl_ansprechpartner`.`PK_ansprechpartner`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur des Views `lehrkraft_informationen`
+--
+DROP TABLE IF EXISTS `lehrkraft_informationen`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `lehrkraft_informationen`  AS SELECT `tbl_lehrkraft`.`Kuerzel` AS `Kuerzel`, `tbl_lehrkraft`.`Geschlecht` AS `Geschlecht`, `tbl_lehrkraft`.`Vorname` AS `Vorname`, `tbl_lehrkraft`.`Nachname` AS `Nachname`, 'E-Mail' AS `E-Mail` FROM `tbl_lehrkraft` ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur des Views `termin_informationen`
+--
+DROP TABLE IF EXISTS `termin_informationen`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `termin_informationen`  AS SELECT `tbl_veranstaltung`.`Bezeichnung` AS `Veranstaltungs Bezeichnung`, `tbl_lehrkraft`.`Kuerzel` AS `Lehrkraft`, `tbl_raum`.`Raumnummer` AS `Raumnummer`, `tbl_termin`.`Terminbeginn` AS `Terminbeginn`, `tbl_termin`.`Terminende` AS `Terminende`, `tbl_ansprechpartner`.`Vorname` AS `Vorname Ansprechpartner`, `tbl_ansprechpartner`.`Nachname` AS `Nachname Ansprechpartner`, `tbl_ansprechpartner`.`Mobilnummer` AS `Ansprechpartner Mobilnummer`, `tbl_schueler`.`Vorname` AS `Vorname Schueler`, `tbl_schueler`.`Nachname` AS `Nachname Schueler` FROM ((((((`tbl_termin` join `tbl_ansprechpartner` on(`tbl_termin`.`FK_ansprechpartner` = `tbl_ansprechpartner`.`PK_ansprechpartner`)) join `tbl_schueler` on(`tbl_schueler`.`FK_ansprechpartner` = `tbl_ansprechpartner`.`PK_ansprechpartner`)) join `tbl_lehrkraft_termin` on(`tbl_termin`.`PK_termin` = `tbl_lehrkraft_termin`.`FK_termin`)) join `tbl_lehrkraft` on(`tbl_lehrkraft_termin`.`FK_lehrkraft` = `tbl_lehrkraft`.`PK_lehrkraft`)) join `tbl_raum` on(`tbl_lehrkraft`.`FK_raum` = `tbl_raum`.`PK_raum`)) join `tbl_veranstaltung` on(`tbl_termin`.`FK_veranstaltung` = `tbl_veranstaltung`.`PK_veranstaltung`)) ;
 
 --
 -- Indizes der exportierten Tabellen
@@ -165,14 +237,12 @@ ALTER TABLE `tbl_ansprechpartner`
 ALTER TABLE `tbl_gebaeude`
   ADD PRIMARY KEY (`PK_gebaeude`);
 
-
 --
 -- Indizes für die Tabelle `tbl_lehrkraft`
 --
 ALTER TABLE `tbl_lehrkraft`
-  ADD PRIMARY KEY (`PK_lehrkraft`),  
+  ADD PRIMARY KEY (`PK_lehrkraft`),
   ADD KEY `FK_raum` (`FK_raum`);
-  
 
 --
 -- Indizes für die Tabelle `tbl_lehrkraft_termin`
@@ -187,6 +257,7 @@ ALTER TABLE `tbl_lehrkraft_termin`
 ALTER TABLE `tbl_raum`
   ADD PRIMARY KEY (`PK_raum`),
   ADD KEY `FK_gebaeude` (`FK_gebaeude`);
+
 --
 -- Indizes für die Tabelle `tbl_schueler`
 --
@@ -199,7 +270,6 @@ ALTER TABLE `tbl_schueler`
 --
 ALTER TABLE `tbl_schulleitung`
   ADD PRIMARY KEY (`PK_schulleitung`);
-  
 
 --
 -- Indizes für die Tabelle `tbl_termin`
@@ -274,15 +344,9 @@ ALTER TABLE `tbl_veranstaltung`
 --
 
 --
--- Constraints der Tabelle `tbl_schueler`
---
-ALTER TABLE `tbl_schueler`
-  ADD CONSTRAINT `tbl_schueler_ibfk_1` FOREIGN KEY (`FK_ansprechpartner`) REFERENCES `tbl_ansprechpartner` (`PK_ansprechpartner`);
-
---
 -- Constraints der Tabelle `tbl_lehrkraft`
 --
-ALTER TABLE `tbl_lehrkraft`  
+ALTER TABLE `tbl_lehrkraft`
   ADD CONSTRAINT `tbl_lehrkraft_ibfk_1` FOREIGN KEY (`FK_raum`) REFERENCES `tbl_raum` (`PK_raum`);
 
 --
@@ -299,6 +363,12 @@ ALTER TABLE `tbl_raum`
   ADD CONSTRAINT `tbl_raum_ibfk_1` FOREIGN KEY (`FK_gebaeude`) REFERENCES `tbl_gebaeude` (`PK_gebaeude`);
 
 --
+-- Constraints der Tabelle `tbl_schueler`
+--
+ALTER TABLE `tbl_schueler`
+  ADD CONSTRAINT `tbl_schueler_ibfk_1` FOREIGN KEY (`FK_ansprechpartner`) REFERENCES `tbl_ansprechpartner` (`PK_ansprechpartner`);
+
+--
 -- Constraints der Tabelle `tbl_termin`
 --
 ALTER TABLE `tbl_termin`
@@ -311,7 +381,6 @@ ALTER TABLE `tbl_termin`
 --
 ALTER TABLE `tbl_veranstaltung`
   ADD CONSTRAINT `tbl_veranstaltung_ibfk_1` FOREIGN KEY (`FK_schulleitung`) REFERENCES `tbl_schulleitung` (`PK_schulleitung`);
-
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
