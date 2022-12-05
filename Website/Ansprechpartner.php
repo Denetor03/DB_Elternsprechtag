@@ -9,14 +9,15 @@ try {
   // set the PDO error mode to exception
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+  print_r($_POST);
   // prepare sql and bind parameters
-  $stmt = $conn->prepare("INSERT INTO tbl_ansprechpartner )
-  VALUES (:PK_ansprechpartner, :Vorname, :Nachname, :Betriebsname, :`E-mail`, :Mobilnummer)");
-  $stmt->bindParam(':Kuerzel', $_POST["kuerzel"]);
-  $stmt->bindParam(':Geschlecht`', $_POST["Geschlecht"]);
-  $stmt->bindParam(':`E-mail`', $_POST["Email"]);
-  $stmt->bindParam(':Vorname', $_POST["Vorname"]);
-  $stmt->bindParam(':Nachname`', $_POST["Nachname"]);
+  $stmt = $conn->prepare("INSERT INTO tbl_ansprechpartner
+  VALUES (Null, :Vorname, :Nachname, :Betriebsname, :Email, :Mobilnummer)");
+  $stmt->bindParam(':Vorname', $_POST["vorname"]);
+  $stmt->bindParam(':Nachname', $_POST["nachname"]);
+  $stmt->bindParam(':Betriebsname', $_POST["betriebsname"]);
+  $stmt->bindParam(':Email', $_POST["email"]);
+  $stmt->bindParam(':Mobilnummer', $_POST["mobilnummer"]);
   $stmt->execute();
 
   echo "New records created successfully";
