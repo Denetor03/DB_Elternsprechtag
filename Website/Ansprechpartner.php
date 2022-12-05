@@ -25,4 +25,3 @@ try {
   echo "Error: " . $e->getMessage();
 }
 $conn = null;
-?> 
