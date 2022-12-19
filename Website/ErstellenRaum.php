@@ -2,22 +2,17 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "Elternsprechtag";
+$dbname = "elternsprechtag";
 
 try {
   $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-  // set the PDO error mode to exception
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
   print_r($_POST);
-  // prepare sql and bind parameters
-  $stmt = $conn->prepare("INSERT INTO tbl_schulleitung
-  VALUES (Null, :Kuerzel, :Geschlecht, :Email, :Vorname, :Nachname)");
-  $stmt->bindParam(':kuerzel', $_POST["kuerzel"]);
-  $stmt->bindParam(':Geschlecht', $_POST["gechlecht"]);
-  $stmt->bindParam(':Email', $_POST["email"]);
-  $stmt->bindParam(':Vorname', $_POST["vorname"]);
-  $stmt->bindParam(':Nachname', $_POST["nachname"]);
+  $stmt = $conn->prepare("INSERT INTO tbl_raum
+  VALUES (null, :raumnr, :pk_gebaude)");
+  $stmt->bindParam(':pk_gebaude', $_POST["gebaude"]);
+  $stmt->bindParam(':raumnr', $_POST["raumnr"]);
+
   $stmt->execute();
 
   echo "New records created successfully";

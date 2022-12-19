@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "Elternsprechtag";
+$dbname = "elternsprechtag";
 
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -91,17 +91,18 @@ try {
                 </div>
             </form>
             <br>
-            <form action="ErstellenSchulleitung.php" method="post">
+            <form action="ErstellenRaum.php" method="post">
                 <h1>Raum erstellung</h1><hr>
                 <!--gebäude-->
                 <div class="d-flex justify-content-between">
                     <label for="gebaeudenr">Gebäude</label>
                     <select  name="gebaude">
                     <?php 
-                    $stmt = $pdo->prepare("select * from tbl_gebaeude");
+                    $stmt = $conn->prepare("select * from tbl_gebaeude");
+                    $stmt -> execute();
                     while($row = $stmt->fetch()){?>
-                        <option value="<?php echo
-                        $row["PK_raum"]; ?>"><?php echo
+                        <option value='<?php echo
+                        $row["PK_raum"]; ?>'><?php echo
                         $row["Standortbezeichnung"]; ?></option><?php
                     } ?>
 
