@@ -66,9 +66,9 @@ input{
     border-radius: 10px;
     background-color: #3c3c3c;
     color: white;
-    padding-left: 3%;
+    padding-left: 2%;
+    padding-right: 2%;
     border-color: #3c3c3c !important;
-    
 }
 
 
@@ -78,7 +78,6 @@ form button{
     border-color: #303030;
     border-radius: 30%;
     padding: 1%;
-    
 }
 
 form select{
@@ -87,7 +86,6 @@ form select{
     color: white;
     padding-left: 3%;
     border-color: #3c3c3c !important;
-    
 }
 
 hr{

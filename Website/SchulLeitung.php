@@ -79,6 +79,50 @@ try {
                     <button type="submit">Erstellen</button>
                 </div>
             </form>
+
+
+            <form action="ErstellenLehrer.php" method="post">
+                <h1>Erstellen Veranstaltung</h1><hr>
+                <div class="d-flex justify-content-between">
+                    <label for="Bezeichnung">Bezeichnung</label>
+                    <input type="text" name="Bezeichnung" id="Bezeichnung" required>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <label for="Beginn">Beginn</label>
+                    <input type="datetime-local" name="Beginn" id="Beginn" required>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <label for="Ende">Ende</label>
+                    <input type="datetime-local" name="Ende" id="Ende" required>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <label for="fk_schulleitung">Raum</label>
+                    <select  name="fk_schulleitung" required>
+                    <?php
+                    $stmt = $conn->prepare("select * from tbl_schulleitung");
+                    $stmt -> execute();
+                    while($row = $stmt->fetch()){?>
+                        <option value='<?php echo
+                        $row["PK_schulleitung"]; ?>'><?php echo
+                        $row["Nachname"]; ?></option><?php
+                    } ?>
+
+                    </select>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <button onclick="window.location='SignIn.html'" value="Zurück">Zurück</button>
+                    <button type="submit">Erstellen</button>
+                </div>
+            </form>
+
+
+
+
+
         </div>
     </div>
 </body>

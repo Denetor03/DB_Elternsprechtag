@@ -9,7 +9,7 @@ try {
   // prepare sql and bind parameters
   $stmt = $conn->prepare("INSERT INTO tbl_schulleitung
   VALUES (Null, :Kuerzel, :Geschlecht, :Email, :Vorname, :Nachname)");
-  $stmt->bindParam(':kuerzel', $_POST["kuerzel"]);
+  $stmt->bindParam(':Kuerzel', $_POST["kuerzel"]);
   $stmt->bindParam(':Geschlecht', $_POST["gechlecht"]);
   $stmt->bindParam(':Email', $_POST["email"]);
   $stmt->bindParam(':Vorname', $_POST["vorname"]);
