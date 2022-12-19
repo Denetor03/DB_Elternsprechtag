@@ -43,27 +43,27 @@ try {
                 <!--  VALUES (:PK_schulleitung, :Kuerzel, :Geschlecht, :`E-mail`, :Vorname, :Nachname)");-->
                 <div class="d-flex justify-content-between">
                     <label for="kuerzel">Kürzel</label>
-                    <input type="text" name="kuerzel" id="kuerzel">
+                    <input type="text" name="kuerzel" id="kuerzel" required>
                 </div>
                 <hr>
                 <div class="d-flex justify-content-between">
                     <label for="geschlecht">Geschlecht</label>
-                    <input type="text" name="geschlecht" id="geschlecht">
+                    <input type="text" name="geschlecht" id="geschlecht" required>
                 </div>
                 <hr>
                 <div class="d-flex justify-content-between">
                     <label for="email">Email</label>
-                    <input type="text" name="email" id="email">
+                    <input type="text" name="email" id="email" required>
                 </div>
                 <hr>
                 <div class="d-flex justify-content-between">
                     <label for="vorname">Vorname</label>
-                    <input type="text" name="vorname" id="vorname">
+                    <input type="text" name="vorname" id="vorname" required>
                 </div>
                 <hr>
                 <div class="d-flex justify-content-between">
                     <label for="nachname">Nachname</label>
-                    <input type="text" name="nachname" id="nachname">
+                    <input type="text" name="nachname" id="nachname" required>
                 </div>
                 <hr>
                 <div class="d-flex justify-content-between">
@@ -77,12 +77,12 @@ try {
                 <!--gebäude-->
                 <div class="d-flex justify-content-between">
                     <label for="gebaeudenr">Gebäude nummer</label>
-                    <input type="text" name="gebaeudenr">
+                    <input type="text" name="gebaeudenr" required>
                 </div>
                 <hr>
                 <div class="d-flex justify-content-between">
                     <label for="bezeichnung">Standort bezeichnung</label>
-                    <input type="text" name="bezeichnung">
+                    <input type="text" name="bezeichnung" required>
                 </div>
                 <hr>
                 <div class="d-flex justify-content-between">
@@ -96,13 +96,13 @@ try {
                 <!--gebäude-->
                 <div class="d-flex justify-content-between">
                     <label for="gebaeudenr">Gebäude</label>
-                    <select  name="gebaude">
+                    <select  name="gebaude" required>
                     <?php 
                     $stmt = $conn->prepare("select * from tbl_gebaeude");
                     $stmt -> execute();
                     while($row = $stmt->fetch()){?>
                         <option value='<?php echo
-                        $row["PK_raum"]; ?>'><?php echo
+                        $row["PK_gebaeude"]; ?>'><?php echo
                         $row["Standortbezeichnung"]; ?></option><?php
                     } ?>
 
@@ -111,7 +111,7 @@ try {
                 <hr>
                 <div class="d-flex justify-content-between">
                     <label for="raumnr">Raumnummer</label>
-                    <input type="text" name="raumnr">
+                    <input type="text" name="raumnr" required>
                 </div>
                 <hr>
                 <div class="d-flex justify-content-between">
