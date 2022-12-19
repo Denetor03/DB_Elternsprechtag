@@ -1,9 +1,5 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "Elternsprechtag";
-
+@include 'conn.php';
 try {
   $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
   // set the PDO error mode to exception
@@ -19,8 +15,8 @@ try {
   $stmt->bindParam(':Vorname', $_POST["vorname"]);
   $stmt->bindParam(':Nachname', $_POST["nachname"]);
   $stmt->execute();
-
-  echo "New records created successfully";
+  //redirects back to admin.php after creating raum
+  echo '<script>window.location.href = "Admin.php";</script>';
 } catch(PDOException $e) {
   echo "Error: " . $e->getMessage();
 }

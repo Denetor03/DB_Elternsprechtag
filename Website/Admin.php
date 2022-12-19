@@ -1,16 +1,11 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "elternsprechtag";
-
+@include 'conn.php';
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch(PDOException $err) {
     die($err->getMessage());
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="de">
@@ -40,7 +35,6 @@ try {
             <!-- Schulleitung-->
             <form action="ErstellenSchulleitung.php" method="post">
                 <h1>Erstellen Schulleitungs account</h1><hr>
-                <!--  VALUES (:PK_schulleitung, :Kuerzel, :Geschlecht, :`E-mail`, :Vorname, :Nachname)");-->
                 <div class="d-flex justify-content-between">
                     <label for="kuerzel">Kürzel</label>
                     <input type="text" name="kuerzel" id="kuerzel" required>
@@ -97,7 +91,7 @@ try {
                 <div class="d-flex justify-content-between">
                     <label for="gebaeudenr">Gebäude</label>
                     <select  name="gebaude" required>
-                    <?php 
+                    <?php
                     $stmt = $conn->prepare("select * from tbl_gebaeude");
                     $stmt -> execute();
                     while($row = $stmt->fetch()){?>

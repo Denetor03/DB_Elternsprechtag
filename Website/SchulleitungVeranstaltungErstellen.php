@@ -1,8 +1,5 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "Elternsprechtag";
+@include 'conn.php';
 
 try {
   $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);

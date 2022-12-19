@@ -1,9 +1,5 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "elternsprechtag";
-
+@include 'conn.php';
 try {
   $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -12,10 +8,9 @@ try {
   VALUES (null, :raumnr, :pk_gebaude)");
   $stmt->bindParam(':pk_gebaude', $_POST["gebaude"]);
   $stmt->bindParam(':raumnr', $_POST["raumnr"]);
-
   $stmt->execute();
-
-  echo "New records created successfully";
+  //redirects back to admin.php after creating raum
+  echo '<script>window.location.href = "Admin.php";</script>';
 } catch(PDOException $e) {
   echo "Error: " . $e->getMessage();
 }
