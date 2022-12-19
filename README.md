@@ -1,13 +1,10 @@
-# DB_Elternsprechtag
-Repo für schule
+# Datenbanken projekt der HITO 2022/23
+Mitglieder:
+- Daniel Siebel
+- Sam Seidel
+- Maurice Severin
+- Marius Groß
+- Marvin Schraven
 
-
-- 19.9.22
-  - teilnehmer und festgelegt wer was macht.
-    - Daniel(frontend)
-    - Maurice(doku)
-    - Sam(scripte, datenbank)
-    - Marvin(scripte)
-    - Marius(datenbank)
-
-  - Repo erstellt.
+## Beschreibung
+Dieses projekt beinhaltet ein terminierungs system für schulevents bzw einem Elternsprechtag.
