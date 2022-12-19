@@ -109,6 +109,65 @@ try {
                     <button type="submit">Erstellen</button>
                 </div>
             </form>
+            <h1>Termin buchen</h1><hr>
+            <form action="ErstellenTermin.php" method="post">
+                <div class="d-flex justify-content-between">
+                    <label for="terminbeginn">Terminbeginn</label>
+                    <input type="datetime-local" name="terminbeginn">
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <label for="terminende">Terminende</label>
+                    <input type="datetime-local" name="terminende">
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <label for="fk_lehrer">Lehrer</label>
+                    <select  name="fk_lehrer" required>
+                    <?php
+                    $stmt = $conn->prepare("select * from tbl_lehrkraft");
+                    $stmt -> execute();
+                    while($vertreter = $stmt->fetch()){?>
+                        <option value='<?php echo
+                        $vertreter["PK_lehrkraft"]; ?>'><?php echo
+                        $vertreter["Vorname"]." ".$vertreter["Nachname"]; ?></option><?php
+                    } ?>
+                    </select>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <label for="fk_veranstaltung">Veranstaltung</label>
+                    <select  name="fk_veranstaltung" required>
+                    <?php
+                    $stmt = $conn->prepare("select * from tbl_veranstaltung");
+                    $stmt -> execute();
+                    while($vertreter = $stmt->fetch()){?>
+                        <option value='<?php echo
+                        $vertreter["PK_veranstaltung"]; ?>'><?php echo
+                        $vertreter["Bezeichnung"]; ?></option><?php
+                    } ?>
+                    </select>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <label for="fk_ansprechpartner">Ansprechpartner</label>
+                    <select  name="fk_ansprechpartner" required>
+                    <?php
+                    $stmt = $conn->prepare("select * from tbl_ansprechpartner");
+                    $stmt -> execute();
+                    while($vertreter = $stmt->fetch()){?>
+                        <option value='<?php echo
+                        $vertreter["PK_ansprechpartner"]; ?>'><?php echo
+                        $vertreter["Vorname"]." ".$vertreter["Nachname"]; ?></option><?php
+                    } ?>
+                    </select>
+                </div>
+                <br>
+                <div class="d-flex justify-content-between">
+                    <button onclick="window.location='SignIn.html'" value="Zurück">Zurück</button>
+                    <button type="submit">Erstellen</button>
+                </div>
+            </form>
         </div>
     </div>
 </body>

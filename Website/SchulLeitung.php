@@ -79,27 +79,25 @@ try {
                     <button type="submit">Erstellen</button>
                 </div>
             </form>
-
-
-            <form action="ErstellenLehrer.php" method="post">
+            <form action="ErstellenVeranstaltung.php" method="post">
                 <h1>Erstellen Veranstaltung</h1><hr>
                 <div class="d-flex justify-content-between">
-                    <label for="Bezeichnung">Bezeichnung</label>
-                    <input type="text" name="Bezeichnung" id="Bezeichnung" required>
+                    <label for="bezeichnung">Bezeichnung</label>
+                    <input type="text" name="bezeichnung" id="bezeichnung" required>
                 </div>
                 <hr>
                 <div class="d-flex justify-content-between">
-                    <label for="Beginn">Beginn</label>
-                    <input type="datetime-local" name="Beginn" id="Beginn" required>
+                    <label for="beginn">Beginn</label>
+                    <input type="datetime-local" name="beginn" id="beginn" required>
                 </div>
                 <hr>
                 <div class="d-flex justify-content-between">
-                    <label for="Ende">Ende</label>
-                    <input type="datetime-local" name="Ende" id="Ende" required>
+                    <label for="ende">Ende</label>
+                    <input type="datetime-local" name="ende" id="ende" required>
                 </div>
                 <hr>
                 <div class="d-flex justify-content-between">
-                    <label for="fk_schulleitung">Raum</label>
+                    <label for="fk_schulleitung">Erstellt von(schulleitungs account)</label>
                     <select  name="fk_schulleitung" required>
                     <?php
                     $stmt = $conn->prepare("select * from tbl_schulleitung");
@@ -109,20 +107,13 @@ try {
                         $row["PK_schulleitung"]; ?>'><?php echo
                         $row["Nachname"]; ?></option><?php
                     } ?>
-
                     </select>
                 </div>
-                <hr>
                 <div class="d-flex justify-content-between">
                     <button onclick="window.location='SignIn.html'" value="Zurück">Zurück</button>
                     <button type="submit">Erstellen</button>
                 </div>
             </form>
-
-
-
-
-
         </div>
     </div>
 </body>
