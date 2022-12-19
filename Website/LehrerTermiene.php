@@ -27,7 +27,7 @@
             <input type="text" id="bezeichnung">
         </div>
         <hr>
-        <div class="">    
+        <div class="">
             <label for="start">Verantstaltungs Datum</label>
             <input type="date" id="start" name="Start-date">
         </div>
