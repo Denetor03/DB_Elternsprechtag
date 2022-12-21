@@ -101,3 +101,14 @@ hr{
 ul {
     list-style: none;
 }
+
+#termine{
+    text-align: center;
+    width: 100%;
+    color: white;
+}
+
+#termine tr, td, th{
+    margin-left: 10px;
+    margin-right: 10px;
+}
