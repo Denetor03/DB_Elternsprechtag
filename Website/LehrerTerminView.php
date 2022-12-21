@@ -52,7 +52,7 @@ try {
                     <?= "<td>".$row["Sprechdauer"]."</td>";?>
                     <?= "<td>".$row["Terminbeginn"]."</td>";?>
                     <?= "<td>".$row["Terminende"]."</td>";?>
-                    <?= "<td>".$row["Vorname"].$row["Nachname"]."</td>";?>
+                    <?= "<td>".$row["Vorname"]." ".$row["Nachname"]."</td>";?>
                 </tr>
                 <?php
             } ?>
