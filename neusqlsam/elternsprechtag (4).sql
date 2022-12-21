@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 24. Nov 2022 um 10:39
+-- Erstellungszeit: 20. Dez 2022 um 11:14
 -- Server-Version: 10.4.22-MariaDB
 -- PHP-Version: 8.1.2
 
@@ -64,6 +64,14 @@ CREATE TABLE `tbl_ansprechpartner` (
   `Mobilnummer` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Daten für Tabelle `tbl_ansprechpartner`
+--
+
+INSERT INTO `tbl_ansprechpartner` (`PK_ansprechpartner`, `Vorname`, `Nachname`, `Betriebsname`, `E-Mail`, `Mobilnummer`) VALUES
+(1, 'Peter', 'Schmitt', NULL, 'Peter.Shitt202@gmail.com', '1238/129416'),
+(2, 'Karla', 'Pastrani', 'Metzhein', 'Kar.la19247@web.de', '0124/129081');
+
 -- --------------------------------------------------------
 
 --
@@ -75,6 +83,15 @@ CREATE TABLE `tbl_gebaeude` (
   `Gebaeudenummer` int(255) DEFAULT NULL,
   `Standortbezeichnung` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Daten für Tabelle `tbl_gebaeude`
+--
+
+INSERT INTO `tbl_gebaeude` (`PK_gebaeude`, `Gebaeudenummer`, `Standortbezeichnung`) VALUES
+(1, 24, 'Blumenstraße 16, 42651 Solingen'),
+(2, 12, 'Franzstraße 11, 42657 Solingen'),
+(3, 23131, 'sdadas');
 
 -- --------------------------------------------------------
 
@@ -92,6 +109,14 @@ CREATE TABLE `tbl_lehrkraft` (
   `FK_raum` int(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Daten für Tabelle `tbl_lehrkraft`
+--
+
+INSERT INTO `tbl_lehrkraft` (`PK_lehrkraft`, `Kuerzel`, `Geschlecht`, `Vorname`, `Nachname`, `E-Mail`, `FK_raum`) VALUES
+(1, 'Pac', 'Weiblich', 'Ingrid', 'Pachal', 'Pach.Ing@gmail.com', 1),
+(2, 'Ran', 'Männlich', 'Jakob', 'Rangmann', 'rang@web.de', 2);
+
 -- --------------------------------------------------------
 
 --
@@ -102,6 +127,14 @@ CREATE TABLE `tbl_lehrkraft_termin` (
   `FK_lehrkraft` int(255) DEFAULT NULL,
   `FK_termin` int(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Daten für Tabelle `tbl_lehrkraft_termin`
+--
+
+INSERT INTO `tbl_lehrkraft_termin` (`FK_lehrkraft`, `FK_termin`) VALUES
+(1, 1),
+(2, 2);
 
 -- --------------------------------------------------------
 
@@ -114,6 +147,15 @@ CREATE TABLE `tbl_raum` (
   `Raumnummer` int(255) DEFAULT NULL,
   `FK_gebaeude` int(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Daten für Tabelle `tbl_raum`
+--
+
+INSERT INTO `tbl_raum` (`PK_raum`, `Raumnummer`, `FK_gebaeude`) VALUES
+(1, 134, 1),
+(2, 125, 2),
+(6, 447, 1);
 
 -- --------------------------------------------------------
 
@@ -130,6 +172,14 @@ CREATE TABLE `tbl_schueler` (
   `FK_ansprechpartner` int(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Daten für Tabelle `tbl_schueler`
+--
+
+INSERT INTO `tbl_schueler` (`PK_schueler`, `Klassenkuerzel`, `Geschlecht`, `Vorname`, `Nachname`, `FK_ansprechpartner`) VALUES
+(1, 'HIT-U', 'Männlich', 'Oviler', 'Hänchen ', 1),
+(2, 'HIT-U2', 'Männlich', 'Merlin', 'Schwacken', 2);
+
 -- --------------------------------------------------------
 
 --
@@ -145,6 +195,13 @@ CREATE TABLE `tbl_schulleitung` (
   `Nachname` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Daten für Tabelle `tbl_schulleitung`
+--
+
+INSERT INTO `tbl_schulleitung` (`PK_schulleitung`, `Kuerzel`, `Geschlecht`, `E-Mail`, `Vorname`, `Nachname`) VALUES
+(1, 'Kar', 'Männlich', 'franz.kar@gmail.com', 'Fanz', 'Karling');
+
 -- --------------------------------------------------------
 
 --
@@ -153,13 +210,21 @@ CREATE TABLE `tbl_schulleitung` (
 
 CREATE TABLE `tbl_termin` (
   `PK_termin` int(11) NOT NULL,
-  `Sprechdauer` time DEFAULT NULL,
   `Terminbeginn` datetime DEFAULT NULL,
   `Terminende` datetime DEFAULT NULL,
   `FK_lehrkraft` int(255) DEFAULT NULL,
   `FK_veranstaltung` int(255) DEFAULT NULL,
-  `FK_ansprechpartner` int(255) DEFAULT NULL
+  `FK_ansprechpartner` int(255) DEFAULT NULL,
+  `Sprechdauer` time DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Daten für Tabelle `tbl_termin`
+--
+
+INSERT INTO `tbl_termin` (`PK_termin`, `Terminbeginn`, `Terminende`, `FK_lehrkraft`, `FK_veranstaltung`, `FK_ansprechpartner`, `Sprechdauer`) VALUES
+(1, '2022-12-08 10:21:41', '2022-12-08 10:41:41', 1, 1, 1, '00:20:00'),
+(2, '2022-12-08 10:41:41', '2022-12-08 11:01:41', 2, 1, 2, '00:20:00');
 
 -- --------------------------------------------------------
 
@@ -175,6 +240,13 @@ CREATE TABLE `tbl_veranstaltung` (
   `FK_schulleitung` int(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Daten für Tabelle `tbl_veranstaltung`
+--
+
+INSERT INTO `tbl_veranstaltung` (`PK_veranstaltung`, `Bezeichnung`, `Beginn`, `Ende`, `FK_schulleitung`) VALUES
+(1, 'Elternsprechtag', '2022-12-22 10:21:01', '2022-12-22 20:21:01', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -187,6 +259,7 @@ CREATE TABLE `termin_informationen` (
 ,`Raumnummer` int(255)
 ,`Terminbeginn` datetime
 ,`Terminende` datetime
+,`Terminlänge` time
 ,`Vorname Ansprechpartner` varchar(255)
 ,`Nachname Ansprechpartner` varchar(255)
 ,`Ansprechpartner Mobilnummer` varchar(255)
@@ -219,7 +292,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `termin_informationen`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `termin_informationen`  AS SELECT `tbl_veranstaltung`.`Bezeichnung` AS `Veranstaltungs Bezeichnung`, `tbl_lehrkraft`.`Kuerzel` AS `Lehrkraft`, `tbl_raum`.`Raumnummer` AS `Raumnummer`, `tbl_termin`.`Terminbeginn` AS `Terminbeginn`, `tbl_termin`.`Terminende` AS `Terminende`, `tbl_ansprechpartner`.`Vorname` AS `Vorname Ansprechpartner`, `tbl_ansprechpartner`.`Nachname` AS `Nachname Ansprechpartner`, `tbl_ansprechpartner`.`Mobilnummer` AS `Ansprechpartner Mobilnummer`, `tbl_schueler`.`Vorname` AS `Vorname Schueler`, `tbl_schueler`.`Nachname` AS `Nachname Schueler` FROM ((((((`tbl_termin` join `tbl_ansprechpartner` on(`tbl_termin`.`FK_ansprechpartner` = `tbl_ansprechpartner`.`PK_ansprechpartner`)) join `tbl_schueler` on(`tbl_schueler`.`FK_ansprechpartner` = `tbl_ansprechpartner`.`PK_ansprechpartner`)) join `tbl_lehrkraft_termin` on(`tbl_termin`.`PK_termin` = `tbl_lehrkraft_termin`.`FK_termin`)) join `tbl_lehrkraft` on(`tbl_lehrkraft_termin`.`FK_lehrkraft` = `tbl_lehrkraft`.`PK_lehrkraft`)) join `tbl_raum` on(`tbl_lehrkraft`.`FK_raum` = `tbl_raum`.`PK_raum`)) join `tbl_veranstaltung` on(`tbl_termin`.`FK_veranstaltung` = `tbl_veranstaltung`.`PK_veranstaltung`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `termin_informationen`  AS SELECT `tbl_veranstaltung`.`Bezeichnung` AS `Veranstaltungs Bezeichnung`, `tbl_lehrkraft`.`Kuerzel` AS `Lehrkraft`, `tbl_raum`.`Raumnummer` AS `Raumnummer`, `tbl_termin`.`Terminbeginn` AS `Terminbeginn`, `tbl_termin`.`Terminende` AS `Terminende`, `tbl_termin`.`Sprechdauer` AS `Terminlänge`, `tbl_ansprechpartner`.`Vorname` AS `Vorname Ansprechpartner`, `tbl_ansprechpartner`.`Nachname` AS `Nachname Ansprechpartner`, `tbl_ansprechpartner`.`Mobilnummer` AS `Ansprechpartner Mobilnummer`, `tbl_schueler`.`Vorname` AS `Vorname Schueler`, `tbl_schueler`.`Nachname` AS `Nachname Schueler` FROM ((((((`tbl_termin` join `tbl_ansprechpartner` on(`tbl_termin`.`FK_ansprechpartner` = `tbl_ansprechpartner`.`PK_ansprechpartner`)) join `tbl_schueler` on(`tbl_schueler`.`FK_ansprechpartner` = `tbl_ansprechpartner`.`PK_ansprechpartner`)) join `tbl_lehrkraft_termin` on(`tbl_termin`.`PK_termin` = `tbl_lehrkraft_termin`.`FK_termin`)) join `tbl_lehrkraft` on(`tbl_lehrkraft_termin`.`FK_lehrkraft` = `tbl_lehrkraft`.`PK_lehrkraft`)) join `tbl_raum` on(`tbl_lehrkraft`.`FK_raum` = `tbl_raum`.`PK_raum`)) join `tbl_veranstaltung` on(`tbl_termin`.`FK_veranstaltung` = `tbl_veranstaltung`.`PK_veranstaltung`)) ;
 
 --
 -- Indizes der exportierten Tabellen
@@ -295,49 +368,49 @@ ALTER TABLE `tbl_veranstaltung`
 -- AUTO_INCREMENT für Tabelle `tbl_ansprechpartner`
 --
 ALTER TABLE `tbl_ansprechpartner`
-  MODIFY `PK_ansprechpartner` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `PK_ansprechpartner` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT für Tabelle `tbl_gebaeude`
 --
 ALTER TABLE `tbl_gebaeude`
-  MODIFY `PK_gebaeude` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `PK_gebaeude` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT für Tabelle `tbl_lehrkraft`
 --
 ALTER TABLE `tbl_lehrkraft`
-  MODIFY `PK_lehrkraft` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `PK_lehrkraft` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT für Tabelle `tbl_raum`
 --
 ALTER TABLE `tbl_raum`
-  MODIFY `PK_raum` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `PK_raum` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT für Tabelle `tbl_schueler`
 --
 ALTER TABLE `tbl_schueler`
-  MODIFY `PK_schueler` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `PK_schueler` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT für Tabelle `tbl_schulleitung`
 --
 ALTER TABLE `tbl_schulleitung`
-  MODIFY `PK_schulleitung` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `PK_schulleitung` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT für Tabelle `tbl_termin`
 --
 ALTER TABLE `tbl_termin`
-  MODIFY `PK_termin` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `PK_termin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT für Tabelle `tbl_veranstaltung`
 --
 ALTER TABLE `tbl_veranstaltung`
-  MODIFY `PK_veranstaltung` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `PK_veranstaltung` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints der exportierten Tabellen
