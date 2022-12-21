@@ -97,3 +97,7 @@ hr{
 #ansprechpartner h1{
     padding-top: 10%;
 }
+
+ul {
+    list-style: none;
+}
