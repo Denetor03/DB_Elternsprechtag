@@ -61,7 +61,7 @@ try {
                 </div>
                 <hr>
                 <div class="d-flex justify-content-between">
-                    <button onclick="window.location='SignIn.html'" value="Zurück">Zurück</button>
+                    <button type="button" onclick="window.location='SignIn.html'" value="Zurück">Zurück</button>
                     <button type="submit">Erstellen</button>
                 </div>
             </form>
@@ -80,7 +80,7 @@ try {
                 </div>
                 <hr>
                 <div class="d-flex justify-content-between">
-                    <button onclick="window.location='SignIn.html'" value="Zurück">Zurück</button>
+                    <button type="button" onclick="window.location='SignIn.html'" value="Zurück">Zurück</button>
                     <button type="submit">Erstellen</button>
                 </div>
             </form>
@@ -109,7 +109,7 @@ try {
                 </div>
                 <hr>
                 <div class="d-flex justify-content-between">
-                    <button onclick="window.location='SignIn.html'" value="Zurück">Zurück</button>
+                    <button type="button" onclick="window.location='SignIn.html'" value="Zurück">Zurück</button>
                     <button type="submit">Erstellen</button>
                 </div>
             </form>
