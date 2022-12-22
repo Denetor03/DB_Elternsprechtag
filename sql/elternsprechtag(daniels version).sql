@@ -57,7 +57,7 @@ CREATE TABLE `lehrkraft_informationen` (
 
 CREATE TABLE `tbl_benutzer` (
   `PK_benutzer` int(11) NOT NULL,
-  `priotitaet` int(5) DEFAULT NULL,
+  `prioritaet` int(5) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `passwort` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

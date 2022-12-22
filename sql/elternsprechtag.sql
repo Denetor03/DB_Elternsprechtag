@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 22. Dez 2022 um 19:13
--- Server-Version: 10.4.27-MariaDB
--- PHP-Version: 8.1.12
+-- Erstellungszeit: 22. Dez 2022 um 23:30
+-- Server-Version: 10.4.18-MariaDB
+-- PHP-Version: 8.0.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -63,14 +63,14 @@ CREATE TABLE `tbl_ansprechpartner` (
   `E-Mail` varchar(255) DEFAULT NULL,
   `Mobilnummer` varchar(255) DEFAULT NULL,
   `FK_benutzer` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Daten für Tabelle `tbl_ansprechpartner`
 --
 
 INSERT INTO `tbl_ansprechpartner` (`PK_ansprechpartner`, `Vorname`, `Nachname`, `Betriebsname`, `E-Mail`, `Mobilnummer`, `FK_benutzer`) VALUES
-(1, 'Peter', 'Schmitt', NULL, 'Peter.Shmitt202@gmail.com', '1238/129416', 1),
+(1, 'Peter', 'Schmitt', NULL, 'Peter.Schmitt202@gmail.com', '1238/129416', 1),
 (2, 'Karla', 'Pastrani', 'Metzhein', 'Kar.la19247@web.de', '0124/129081', 2);
 
 -- --------------------------------------------------------
@@ -81,22 +81,22 @@ INSERT INTO `tbl_ansprechpartner` (`PK_ansprechpartner`, `Vorname`, `Nachname`, 
 
 CREATE TABLE `tbl_benutzer` (
   `PK_benutzer` int(11) NOT NULL,
-  `priotitaet` int(5) DEFAULT NULL,
+  `prioritaet` int(5) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `passwort` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Daten für Tabelle `tbl_benutzer`
 --
 
-INSERT INTO `tbl_benutzer` (`PK_benutzer`, `priotitaet`, `email`, `passwort`) VALUES
-(1, 2, 'Peter.Shmitt202@gmail.com\r\n', '1234'),
+INSERT INTO `tbl_benutzer` (`PK_benutzer`, `prioritaet`, `email`, `passwort`) VALUES
+(1, 2, 'Peter.Schmitt202@gmail.com', '1234'),
 (2, 2, 'Kar.la19247@web.de', '1234'),
-(3, 3, 'Pach.Ing@gmail.com', '1234'),
-(4, 3, 'rang@web.de', '1234'),
-(5, 4, 'franz.kar@gmail.com', '1234'),
-(6, 5, 'admin@gmail.com', '1234');
+(5, 5, 'admin@mail.com', '1234'),
+(6, 4, 'franz.kar@gmail.com', '1234'),
+(7, 3, 'rang@web.de', '1234'),
+(8, 3, 'Pach.Ing@gmail.com', '1234');
 
 -- --------------------------------------------------------
 
@@ -108,7 +108,7 @@ CREATE TABLE `tbl_gebaeude` (
   `PK_gebaeude` int(11) NOT NULL,
   `Gebaeudenummer` int(255) DEFAULT NULL,
   `Standortbezeichnung` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Daten für Tabelle `tbl_gebaeude`
@@ -133,15 +133,15 @@ CREATE TABLE `tbl_lehrkraft` (
   `E-Mail` varchar(255) DEFAULT NULL,
   `FK_raum` int(255) DEFAULT NULL,
   `FK_benutzer` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Daten für Tabelle `tbl_lehrkraft`
 --
 
 INSERT INTO `tbl_lehrkraft` (`PK_lehrkraft`, `Kuerzel`, `Geschlecht`, `Vorname`, `Nachname`, `E-Mail`, `FK_raum`, `FK_benutzer`) VALUES
-(1, 'Pac', 'Weiblich', 'Ingrid', 'Pachal', 'Pach.Ing@gmail.com', 1, 3),
-(2, 'Ran', 'Männlich', 'Jakob', 'Rangmann', 'rang@web.de', 2, 4);
+(1, 'Pac', 'Weiblich', 'Ingrid', 'Pachal', 'Pach.Ing@gmail.com', 1, 8),
+(2, 'Ran', 'Männlich', 'Jakob', 'Rangmann', 'rang@web.de', 2, 7);
 
 -- --------------------------------------------------------
 
@@ -152,15 +152,7 @@ INSERT INTO `tbl_lehrkraft` (`PK_lehrkraft`, `Kuerzel`, `Geschlecht`, `Vorname`,
 CREATE TABLE `tbl_lehrkraft_termin` (
   `FK_lehrkraft` int(255) DEFAULT NULL,
   `FK_termin` int(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Daten für Tabelle `tbl_lehrkraft_termin`
---
-
-INSERT INTO `tbl_lehrkraft_termin` (`FK_lehrkraft`, `FK_termin`) VALUES
-(1, 1),
-(2, 2);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -172,7 +164,7 @@ CREATE TABLE `tbl_raum` (
   `PK_raum` int(11) NOT NULL,
   `Raumnummer` int(255) DEFAULT NULL,
   `FK_gebaeude` int(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Daten für Tabelle `tbl_raum`
@@ -196,7 +188,7 @@ CREATE TABLE `tbl_schueler` (
   `Vorname` varchar(255) DEFAULT NULL,
   `Nachname` varchar(255) DEFAULT NULL,
   `FK_ansprechpartner` int(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Daten für Tabelle `tbl_schueler`
@@ -204,7 +196,7 @@ CREATE TABLE `tbl_schueler` (
 
 INSERT INTO `tbl_schueler` (`PK_schueler`, `Klassenkuerzel`, `Geschlecht`, `Vorname`, `Nachname`, `FK_ansprechpartner`) VALUES
 (1, 'HIT-U', 'Männlich', 'Oviler', 'Hänchen ', 1),
-(2, 'HIT-U2', 'Männlich', 'Mark', 'Bauer', 2);
+(2, 'HIT-U2', 'Männlich', 'Merlin', 'Schwacken', 2);
 
 -- --------------------------------------------------------
 
@@ -220,14 +212,14 @@ CREATE TABLE `tbl_schulleitung` (
   `Vorname` varchar(255) DEFAULT NULL,
   `Nachname` varchar(255) DEFAULT NULL,
   `FK_benutzer` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Daten für Tabelle `tbl_schulleitung`
 --
 
 INSERT INTO `tbl_schulleitung` (`PK_schulleitung`, `Kuerzel`, `Geschlecht`, `E-Mail`, `Vorname`, `Nachname`, `FK_benutzer`) VALUES
-(1, 'Kar', 'Männlich', 'franz.kar@gmail.com', 'Fanz', 'Karling', 5);
+(1, 'Kar', 'Männlich', 'franz.kar@gmail.com', 'Fanz', 'Karling', 6);
 
 -- --------------------------------------------------------
 
@@ -243,7 +235,7 @@ CREATE TABLE `tbl_termin` (
   `FK_veranstaltung` int(255) DEFAULT NULL,
   `FK_ansprechpartner` int(255) DEFAULT NULL,
   `Sprechdauer` time DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Daten für Tabelle `tbl_termin`
@@ -265,14 +257,14 @@ CREATE TABLE `tbl_veranstaltung` (
   `Beginn` datetime DEFAULT NULL,
   `Ende` datetime DEFAULT NULL,
   `FK_schulleitung` int(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Daten für Tabelle `tbl_veranstaltung`
 --
 
 INSERT INTO `tbl_veranstaltung` (`PK_veranstaltung`, `Bezeichnung`, `Beginn`, `Ende`, `FK_schulleitung`) VALUES
-(1, 'Elternsprechtag', '2022-12-22 10:21:01', '2022-12-22 20:21:01', 1);
+(1, 'Elternsprechtag', '2022-12-22 07:00:00', '2022-12-22 20:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -301,7 +293,7 @@ CREATE TABLE `termin_informationen` (
 --
 DROP TABLE IF EXISTS `ansprechpartner_informationen`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `ansprechpartner_informationen`  AS SELECT `tbl_ansprechpartner`.`Vorname` AS `Vorname Ansprechpartner`, `tbl_ansprechpartner`.`Nachname` AS `Nachname Ansprechpartner`, `tbl_ansprechpartner`.`Mobilnummer` AS `Ansprechpartner Mobilnummer`, `tbl_schueler`.`Vorname` AS `Vorname Schueler`, `tbl_schueler`.`Nachname` AS `Nachname Schueler` FROM (`tbl_ansprechpartner` join `tbl_schueler` on(`tbl_schueler`.`FK_ansprechpartner` = `tbl_ansprechpartner`.`PK_ansprechpartner`))  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `ansprechpartner_informationen`  AS SELECT `tbl_ansprechpartner`.`Vorname` AS `Vorname Ansprechpartner`, `tbl_ansprechpartner`.`Nachname` AS `Nachname Ansprechpartner`, `tbl_ansprechpartner`.`Mobilnummer` AS `Ansprechpartner Mobilnummer`, `tbl_schueler`.`Vorname` AS `Vorname Schueler`, `tbl_schueler`.`Nachname` AS `Nachname Schueler` FROM (`tbl_ansprechpartner` join `tbl_schueler` on(`tbl_schueler`.`FK_ansprechpartner` = `tbl_ansprechpartner`.`PK_ansprechpartner`)) ;
 
 -- --------------------------------------------------------
 
@@ -310,7 +302,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `lehrkraft_informationen`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `lehrkraft_informationen`  AS SELECT `tbl_lehrkraft`.`Kuerzel` AS `Kuerzel`, `tbl_lehrkraft`.`Geschlecht` AS `Geschlecht`, `tbl_lehrkraft`.`Vorname` AS `Vorname`, `tbl_lehrkraft`.`Nachname` AS `Nachname`, 'E-Mail' AS `E-Mail` FROM `tbl_lehrkraft``tbl_lehrkraft`  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `lehrkraft_informationen`  AS SELECT `tbl_lehrkraft`.`Kuerzel` AS `Kuerzel`, `tbl_lehrkraft`.`Geschlecht` AS `Geschlecht`, `tbl_lehrkraft`.`Vorname` AS `Vorname`, `tbl_lehrkraft`.`Nachname` AS `Nachname`, 'E-Mail' AS `E-Mail` FROM `tbl_lehrkraft` ;
 
 -- --------------------------------------------------------
 
@@ -319,7 +311,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `termin_informationen`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `termin_informationen`  AS SELECT `tbl_veranstaltung`.`Bezeichnung` AS `Veranstaltungs Bezeichnung`, `tbl_lehrkraft`.`Kuerzel` AS `Lehrkraft`, `tbl_raum`.`Raumnummer` AS `Raumnummer`, `tbl_termin`.`Terminbeginn` AS `Terminbeginn`, `tbl_termin`.`Terminende` AS `Terminende`, `tbl_termin`.`Sprechdauer` AS `Terminlänge`, `tbl_ansprechpartner`.`Vorname` AS `Vorname Ansprechpartner`, `tbl_ansprechpartner`.`Nachname` AS `Nachname Ansprechpartner`, `tbl_ansprechpartner`.`Mobilnummer` AS `Ansprechpartner Mobilnummer`, `tbl_schueler`.`Vorname` AS `Vorname Schueler`, `tbl_schueler`.`Nachname` AS `Nachname Schueler` FROM ((((((`tbl_termin` join `tbl_ansprechpartner` on(`tbl_termin`.`FK_ansprechpartner` = `tbl_ansprechpartner`.`PK_ansprechpartner`)) join `tbl_schueler` on(`tbl_schueler`.`FK_ansprechpartner` = `tbl_ansprechpartner`.`PK_ansprechpartner`)) join `tbl_lehrkraft_termin` on(`tbl_termin`.`PK_termin` = `tbl_lehrkraft_termin`.`FK_termin`)) join `tbl_lehrkraft` on(`tbl_lehrkraft_termin`.`FK_lehrkraft` = `tbl_lehrkraft`.`PK_lehrkraft`)) join `tbl_raum` on(`tbl_lehrkraft`.`FK_raum` = `tbl_raum`.`PK_raum`)) join `tbl_veranstaltung` on(`tbl_termin`.`FK_veranstaltung` = `tbl_veranstaltung`.`PK_veranstaltung`))  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `termin_informationen`  AS SELECT `tbl_veranstaltung`.`Bezeichnung` AS `Veranstaltungs Bezeichnung`, `tbl_lehrkraft`.`Kuerzel` AS `Lehrkraft`, `tbl_raum`.`Raumnummer` AS `Raumnummer`, `tbl_termin`.`Terminbeginn` AS `Terminbeginn`, `tbl_termin`.`Terminende` AS `Terminende`, `tbl_termin`.`Sprechdauer` AS `Terminlänge`, `tbl_ansprechpartner`.`Vorname` AS `Vorname Ansprechpartner`, `tbl_ansprechpartner`.`Nachname` AS `Nachname Ansprechpartner`, `tbl_ansprechpartner`.`Mobilnummer` AS `Ansprechpartner Mobilnummer`, `tbl_schueler`.`Vorname` AS `Vorname Schueler`, `tbl_schueler`.`Nachname` AS `Nachname Schueler` FROM ((((((`tbl_termin` join `tbl_ansprechpartner` on(`tbl_termin`.`FK_ansprechpartner` = `tbl_ansprechpartner`.`PK_ansprechpartner`)) join `tbl_schueler` on(`tbl_schueler`.`FK_ansprechpartner` = `tbl_ansprechpartner`.`PK_ansprechpartner`)) join `tbl_lehrkraft_termin` on(`tbl_termin`.`PK_termin` = `tbl_lehrkraft_termin`.`FK_termin`)) join `tbl_lehrkraft` on(`tbl_lehrkraft_termin`.`FK_lehrkraft` = `tbl_lehrkraft`.`PK_lehrkraft`)) join `tbl_raum` on(`tbl_lehrkraft`.`FK_raum` = `tbl_raum`.`PK_raum`)) join `tbl_veranstaltung` on(`tbl_termin`.`FK_veranstaltung` = `tbl_veranstaltung`.`PK_veranstaltung`)) ;
 
 --
 -- Indizes der exportierten Tabellen
@@ -405,6 +397,12 @@ ALTER TABLE `tbl_veranstaltung`
 --
 ALTER TABLE `tbl_ansprechpartner`
   MODIFY `PK_ansprechpartner` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT für Tabelle `tbl_benutzer`
+--
+ALTER TABLE `tbl_benutzer`
+  MODIFY `PK_benutzer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT für Tabelle `tbl_gebaeude`
