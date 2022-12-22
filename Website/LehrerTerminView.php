@@ -25,7 +25,7 @@ try {
             <h1>
                 Schule-xy
             </h1>
-            <button onclick='window.location="signIn.html"'; class="rounded-pill my-1 px-5" id="login-button">
+            <button onclick='window.location="Login.php"'; class="rounded-pill my-1 px-5" id="login-button">
                 Login
             </button>
         </div>
@@ -33,10 +33,12 @@ try {
     <div class="py-5 mt-5 d-flex justify-content-center">
         <table id="termine">
         <tr>
+
             <th>Dauer</th>
             <th>Anfang</th>
             <th>Ende</th>
             <th>Vertreter</th>
+            <th>A</th>
         </tr>
             <?php
             $stmt = $conn->prepare('
@@ -49,11 +51,18 @@ try {
 
             while($row = $stmt->fetch()){?>
                 <tr>
+  
                     <?= "<td>".$row["Sprechdauer"]."</td>";?>
                     <?= "<td>".$row["Terminbeginn"]."</td>";?>
                     <?= "<td>".$row["Terminende"]."</td>";?>
                     <?= "<td>".$row["Vorname"]." ".$row["Nachname"]."</td>";?>
+                    <?= '<td><form><button value="">Annehmen</button><button>Ablehnen</button<form></td>';?>
                 </tr>
+
+                <select>
+                    <option>
+                </select>
+
                 <?php
             }
             $stmt = $conn->prepare('
