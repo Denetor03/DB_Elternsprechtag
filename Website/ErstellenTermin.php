@@ -10,7 +10,6 @@ try {
   $from_time = new DateTime($_POST["terminende"]);
   $sprechdauer =  $from_time->diff($to_time);
   $sprechdauer = $sprechdauer->format('%H:%I');
-  echo $sprechdauer
   // prepare sql and bind parameters
   $stmt = $conn->prepare("INSERT INTO tbl_termin
   VALUES (Null, :terminbeginn, :terminende, :fk_lehrer, :fk_veranstaltung, :fk_ansprechpartner, :sprechdauer )");

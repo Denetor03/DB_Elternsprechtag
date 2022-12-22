@@ -4,7 +4,6 @@ gray: #6e6e6e
 dark-gray: #3c3c3c;
 */
 
-
 body{
     background-color: #5f5f5f;
 }
@@ -36,6 +35,18 @@ body{
 
 #loginAs{
     background-color: #3a92ff;
+    width: fit-content;
+}
+
+#loginAs input{
+    margin: 5%;
+    width: 70%;
+    border-radius: 10px;
+    background-color: #707070;
+    color: white;
+    padding-left: 2%;
+    padding-right: 2%;
+    border-color: #3c3c3c !important;
 }
 
 #loginAsLinks{
@@ -70,7 +81,6 @@ input{
     padding-right: 2%;
     border-color: #3c3c3c !important;
 }
-
 
 form button{
     background-color: #3c3c3c;
