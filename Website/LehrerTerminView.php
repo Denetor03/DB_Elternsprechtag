@@ -39,7 +39,7 @@ try {
             <th>Anfang</th>
             <th>Ende</th>
             <th>Vertreter</th>
-            <th>andere</th>
+            <th></th>
         </tr>
             <?php
             $stmt = $conn->prepare('
@@ -48,7 +48,7 @@ try {
                 JOIN tbl_lehrkraft ON PK_lehrkraft = FK_lehrkraft
                 JOIN tbl_ansprechpartner ON PK_ansprechpartner = FK_ansprechpartner
                 WHERE PK_termin NOT IN (SELECT FK_termin FROM tbl_lehrkraft_termin)
-              
+
             ');
             $stmt -> execute();
 
