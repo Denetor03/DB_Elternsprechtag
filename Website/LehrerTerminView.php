@@ -33,8 +33,8 @@ try {
     <div class="py-5 mt-5 d-flex justify-content-center">
         <table id="termine">
         <tr>
-            <th>Sprechdauer</th>
-            <th>Terminbeginn</th>
+            <th>Dauer</th>
+            <th>Anfang</th>
             <th>Ende</th>
             <th>Vertreter</th>
         </tr>
@@ -55,8 +55,30 @@ try {
                     <?= "<td>".$row["Vorname"]." ".$row["Nachname"]."</td>";?>
                 </tr>
                 <?php
+            }
+            $stmt = $conn->prepare('
+            SELECT Sprechdauer, Terminbeginn, Terminende, FK_ansprechpartner, tbl_lehrkraft.Vorname AS "Lehkraft-Vorname", tbl_lehrkraft.Nachname
+            FROM tbL_termin
+            JOIN tbl_lehrkraft ON PK_lehrkraft = FK_lehrkraft
+            Where FK_ansprechpartner is Null
+            ');
+            $stmt -> execute();
+
+            while($row = $stmt->fetch()){?>
+                <tr>
+                    <?= "<td>".$row["Sprechdauer"]."</td>";?>
+                    <?= "<td>".$row["Terminbeginn"]."</td>";?>
+                    <?= "<td>".$row["Terminende"]."</td>";?>
+                    <?= "<td>Pause</td>";?>
+                </tr>
+                <?php
             } ?>
+
+
+
+
         </table>
+        <hr>
     </div>
 </body>
 </html>
