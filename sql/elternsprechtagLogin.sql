@@ -72,7 +72,7 @@ INSERT INTO `tbl_ansprechpartner` (`PK_ansprechpartner`, `Vorname`, `Nachname`, 
 (1, 'Peter', 'Schmitt', NULL, 'Peter.Shitt202@gmail.com', '1238/129416'),
 (2, 'Karla', 'Pastrani', 'Metzhein', 'Kar.la19247@web.de', '0124/129081');
 
--- --------------------------------------------------------
+----------------------------------------------------------
 
 --
 -- Tabellenstruktur für Tabelle `tbl_gebaeude`

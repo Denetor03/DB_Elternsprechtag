@@ -73,10 +73,6 @@ try {
                 </tr>
                 <?php
             } ?>
-
-
-
-
         </table>
         <hr>
     </div>
