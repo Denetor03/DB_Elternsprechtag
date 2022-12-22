@@ -25,7 +25,7 @@ try {
             <h1>
                 Schule-xy
             </h1>
-            <button onclick='window.location="signIn.html"'; class="rounded-pill my-1 px-5" id="login-button">
+            <button onclick='window.location="Login.php"'; class="rounded-pill my-1 px-5" id="login-button">
                 Login
             </button>
         </div>
@@ -85,7 +85,7 @@ try {
                 </div>
                 <hr>
                 <div class="d-flex justify-content-between">
-                    <button type="button" onclick="window.location='SignIn.html'" value="Zurück">Zurück</button>
+                    <button type="button" onclick="window.location='Login.php'" value="Zurück">Zurück</button>
                     <button type="submit">Erstellen</button>
                 </div>
             </form>

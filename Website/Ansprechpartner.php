@@ -28,45 +28,13 @@ try {
             <h1>
                 Schule-xy
             </h1>
-            <button onclick='window.location="signIn.html"'; class="rounded-pill my-1 px-5" id="login-button">
+            <button onclick='window.location="Login.php"'; class="rounded-pill my-1 px-5" id="login-button">
                 Login
             </button>
         </div>
     </div>
     <div class="py-5 mt-5 d-flex justify-content-center" id="ansprechpartner">
         <div class="w-50">
-             <!--<h1>Ansprechpartner</h1><hr>
-           <form action="ErstellenAnsprechpartner.php" method="post">
-                <div class="d-flex justify-content-between">
-                    <label for="vorname">Vorname</label>
-                    <input type="text" name="vorname">
-                </div>
-                <hr>
-                <div class="d-flex justify-content-between">
-                    <label for="nachname">Nachname</label>
-                    <input type="text" name="nachname">
-                </div>
-                <hr>
-                <div class="d-flex justify-content-between">
-                    <label for="betriebsname">Betriebsname</label>
-                    <input type="text" name="betriebsname">
-                </div>
-                <hr>
-                <div class="d-flex justify-content-between">
-                    <label for="email">E-Mail</label>
-                    <input type="email" name="email">
-                </div>
-                <hr>
-                <div class="d-flex justify-content-between">
-                    <label for="mobilnummer">Mobilnummer</label>
-                    <input type="tel" name="mobilnummer"  placeholder="123-45-678">
-                </div>
-                <br>
-                <div class="d-flex justify-content-between">
-                    <button type="button" onclick="window.location='SignIn.html'" value="Zurück">Zurück</button>
-                    <button type="submit">Erstellen</button>
-                </div>
-            </form>-->
             <h1>Wen vertreten sie?</h1><hr>
             <form action="ErstellenSchueler.php" method="post">
                 <div class="d-flex justify-content-between">
@@ -154,7 +122,7 @@ try {
                 </div>
                 <br>
                 <div class="d-flex justify-content-between">
-                    <button type="button" onclick="window.location='SignIn.html'" value="Zurück">Zurück</button>
+                    <button type="button" onclick="window.location='Login.php'" value="Zurück">Zurück</button>
                     <button type="submit">Erstellen</button>
                 </div>
             </form>
