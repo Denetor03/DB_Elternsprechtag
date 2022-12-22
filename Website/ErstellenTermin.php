@@ -6,11 +6,11 @@ try {
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   //pk_termin, sprechdauer, terminbeginn, ende, fk lehrer, fk veranstaltung fk_ansprechpartner
   print_r($_POST);
-  $to_time = strtotime($_POST["terminbeginn"]);
-  $from_time = strtotime($_POST["terminende"]);
-  $sprechdauer =  round(abs($to_time - $from_time));
-  echo $sprechdauer;
-  $sprechdauer = 600;
+  $to_time = new DateTime($_POST["terminbeginn"]);
+  $from_time = new DateTime($_POST["terminende"]);
+  $sprechdauer =  $from_time->diff($to_time);
+  $sprechdauer = $sprechdauer->format('%H:%I');
+  echo $sprechdauer
   // prepare sql and bind parameters
   $stmt = $conn->prepare("INSERT INTO tbl_termin
   VALUES (Null, :terminbeginn, :terminende, :fk_lehrer, :fk_veranstaltung, :fk_ansprechpartner, :sprechdauer )");
