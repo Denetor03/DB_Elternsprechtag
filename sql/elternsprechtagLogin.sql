@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 20. Dez 2022 um 11:14
--- Server-Version: 10.4.22-MariaDB
--- PHP-Version: 8.1.2
+-- Erstellungszeit: 22. Dez 2022 um 15:43
+-- Server-Version: 10.4.27-MariaDB
+-- PHP-Version: 8.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Datenbank: `elternsprechtag`
+-- Datenbank: `test`
 --
 
 -- --------------------------------------------------------
@@ -61,18 +61,39 @@ CREATE TABLE `tbl_ansprechpartner` (
   `Nachname` varchar(255) DEFAULT NULL,
   `Betriebsname` varchar(255) DEFAULT NULL,
   `E-Mail` varchar(255) DEFAULT NULL,
-  `Mobilnummer` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `Mobilnummer` varchar(255) DEFAULT NULL,
+  `FK_benutzer` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Daten für Tabelle `tbl_ansprechpartner`
 --
 
-INSERT INTO `tbl_ansprechpartner` (`PK_ansprechpartner`, `Vorname`, `Nachname`, `Betriebsname`, `E-Mail`, `Mobilnummer`) VALUES
-(1, 'Peter', 'Schmitt', NULL, 'Peter.Shitt202@gmail.com', '1238/129416'),
-(2, 'Karla', 'Pastrani', 'Metzhein', 'Kar.la19247@web.de', '0124/129081');
+INSERT INTO `tbl_ansprechpartner` (`PK_ansprechpartner`, `Vorname`, `Nachname`, `Betriebsname`, `E-Mail`, `Mobilnummer`, `FK_benutzer`) VALUES
+(1, 'Peter', 'Schmitt', NULL, 'Peter.Shitt202@gmail.com', '1238/129416', NULL),
+(2, 'Karla', 'Pastrani', 'Metzhein', 'Kar.la19247@web.de', '0124/129081', NULL);
 
-----------------------------------------------------------
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `tbl_benutzer`
+--
+
+CREATE TABLE `tbl_benutzer` (
+  `PK_benutzer` int(11) NOT NULL,
+  `prioritaet` int(5) DEFAULT NULL,
+  `passwort` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Daten für Tabelle `tbl_benutzer`
+--
+
+INSERT INTO `tbl_benutzer` (`PK_benutzer`, `prioritaet`, `passwort`, `email`) VALUES
+(1, 5, '1234', 'adming@mail.de');
+
+-- --------------------------------------------------------
 
 --
 -- Tabellenstruktur für Tabelle `tbl_gebaeude`
@@ -82,7 +103,7 @@ CREATE TABLE `tbl_gebaeude` (
   `PK_gebaeude` int(11) NOT NULL,
   `Gebaeudenummer` int(255) DEFAULT NULL,
   `Standortbezeichnung` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Daten für Tabelle `tbl_gebaeude`
@@ -106,16 +127,17 @@ CREATE TABLE `tbl_lehrkraft` (
   `Vorname` varchar(255) DEFAULT NULL,
   `Nachname` varchar(255) DEFAULT NULL,
   `E-Mail` varchar(255) DEFAULT NULL,
-  `FK_raum` int(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `FK_raum` int(255) DEFAULT NULL,
+  `FK_benutzer` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Daten für Tabelle `tbl_lehrkraft`
 --
 
-INSERT INTO `tbl_lehrkraft` (`PK_lehrkraft`, `Kuerzel`, `Geschlecht`, `Vorname`, `Nachname`, `E-Mail`, `FK_raum`) VALUES
-(1, 'Pac', 'Weiblich', 'Ingrid', 'Pachal', 'Pach.Ing@gmail.com', 1),
-(2, 'Ran', 'Männlich', 'Jakob', 'Rangmann', 'rang@web.de', 2);
+INSERT INTO `tbl_lehrkraft` (`PK_lehrkraft`, `Kuerzel`, `Geschlecht`, `Vorname`, `Nachname`, `E-Mail`, `FK_raum`, `FK_benutzer`) VALUES
+(1, 'Pac', 'Weiblich', 'Ingrid', 'Pachal', 'Pach.Ing@gmail.com', 1, NULL),
+(2, 'Ran', 'Männlich', 'Jakob', 'Rangmann', 'rang@web.de', 2, NULL);
 
 -- --------------------------------------------------------
 
@@ -126,7 +148,7 @@ INSERT INTO `tbl_lehrkraft` (`PK_lehrkraft`, `Kuerzel`, `Geschlecht`, `Vorname`,
 CREATE TABLE `tbl_lehrkraft_termin` (
   `FK_lehrkraft` int(255) DEFAULT NULL,
   `FK_termin` int(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Daten für Tabelle `tbl_lehrkraft_termin`
@@ -146,7 +168,7 @@ CREATE TABLE `tbl_raum` (
   `PK_raum` int(11) NOT NULL,
   `Raumnummer` int(255) DEFAULT NULL,
   `FK_gebaeude` int(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Daten für Tabelle `tbl_raum`
@@ -170,7 +192,7 @@ CREATE TABLE `tbl_schueler` (
   `Vorname` varchar(255) DEFAULT NULL,
   `Nachname` varchar(255) DEFAULT NULL,
   `FK_ansprechpartner` int(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Daten für Tabelle `tbl_schueler`
@@ -192,15 +214,16 @@ CREATE TABLE `tbl_schulleitung` (
   `Geschlecht` varchar(255) DEFAULT NULL,
   `E-Mail` varchar(255) DEFAULT NULL,
   `Vorname` varchar(255) DEFAULT NULL,
-  `Nachname` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `Nachname` varchar(255) DEFAULT NULL,
+  `FK_benutzer` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Daten für Tabelle `tbl_schulleitung`
 --
 
-INSERT INTO `tbl_schulleitung` (`PK_schulleitung`, `Kuerzel`, `Geschlecht`, `E-Mail`, `Vorname`, `Nachname`) VALUES
-(1, 'Kar', 'Männlich', 'franz.kar@gmail.com', 'Fanz', 'Karling');
+INSERT INTO `tbl_schulleitung` (`PK_schulleitung`, `Kuerzel`, `Geschlecht`, `E-Mail`, `Vorname`, `Nachname`, `FK_benutzer`) VALUES
+(1, 'Kar', 'Männlich', 'franz.kar@gmail.com', 'Fanz', 'Karling', NULL);
 
 -- --------------------------------------------------------
 
@@ -216,7 +239,7 @@ CREATE TABLE `tbl_termin` (
   `FK_veranstaltung` int(255) DEFAULT NULL,
   `FK_ansprechpartner` int(255) DEFAULT NULL,
   `Sprechdauer` time DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Daten für Tabelle `tbl_termin`
@@ -238,7 +261,7 @@ CREATE TABLE `tbl_veranstaltung` (
   `Beginn` datetime DEFAULT NULL,
   `Ende` datetime DEFAULT NULL,
   `FK_schulleitung` int(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Daten für Tabelle `tbl_veranstaltung`
@@ -249,25 +272,6 @@ INSERT INTO `tbl_veranstaltung` (`PK_veranstaltung`, `Bezeichnung`, `Beginn`, `E
 
 -- --------------------------------------------------------
 
---
--- Tabellenstruktur für Tabelle `tbl_benutzer`
---
-
-CREATE TABLE `tbl_benutzer` (
-  `PK_benutzer` int(11) NOT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `passwort` varchar(255) DEFAULT NULL,
-  `protiteat` int(5) DEFAULT NULL,
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Daten für Tabelle `tbl_veranstaltung`
---
-
-INSERT INTO `tbl_benutzer` (`PK_benutzer`, `email`, `passwort`, `protiteat`) VALUES
-(1, 'adming@mail.de', '1234', 5);
-
--- --------------------------------------------------------
 --
 -- Stellvertreter-Struktur des Views `termin_informationen`
 -- (Siehe unten für die tatsächliche Ansicht)
@@ -293,7 +297,7 @@ CREATE TABLE `termin_informationen` (
 --
 DROP TABLE IF EXISTS `ansprechpartner_informationen`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `ansprechpartner_informationen`  AS SELECT `tbl_ansprechpartner`.`Vorname` AS `Vorname Ansprechpartner`, `tbl_ansprechpartner`.`Nachname` AS `Nachname Ansprechpartner`, `tbl_ansprechpartner`.`Mobilnummer` AS `Ansprechpartner Mobilnummer`, `tbl_schueler`.`Vorname` AS `Vorname Schueler`, `tbl_schueler`.`Nachname` AS `Nachname Schueler` FROM (`tbl_ansprechpartner` join `tbl_schueler` on(`tbl_schueler`.`FK_ansprechpartner` = `tbl_ansprechpartner`.`PK_ansprechpartner`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `ansprechpartner_informationen`  AS SELECT `tbl_ansprechpartner`.`Vorname` AS `Vorname Ansprechpartner`, `tbl_ansprechpartner`.`Nachname` AS `Nachname Ansprechpartner`, `tbl_ansprechpartner`.`Mobilnummer` AS `Ansprechpartner Mobilnummer`, `tbl_schueler`.`Vorname` AS `Vorname Schueler`, `tbl_schueler`.`Nachname` AS `Nachname Schueler` FROM (`tbl_ansprechpartner` join `tbl_schueler` on(`tbl_schueler`.`FK_ansprechpartner` = `tbl_ansprechpartner`.`PK_ansprechpartner`))  ;
 
 -- --------------------------------------------------------
 
@@ -302,7 +306,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `lehrkraft_informationen`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `lehrkraft_informationen`  AS SELECT `tbl_lehrkraft`.`Kuerzel` AS `Kuerzel`, `tbl_lehrkraft`.`Geschlecht` AS `Geschlecht`, `tbl_lehrkraft`.`Vorname` AS `Vorname`, `tbl_lehrkraft`.`Nachname` AS `Nachname`, 'E-Mail' AS `E-Mail` FROM `tbl_lehrkraft` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `lehrkraft_informationen`  AS SELECT `tbl_lehrkraft`.`Kuerzel` AS `Kuerzel`, `tbl_lehrkraft`.`Geschlecht` AS `Geschlecht`, `tbl_lehrkraft`.`Vorname` AS `Vorname`, `tbl_lehrkraft`.`Nachname` AS `Nachname`, 'E-Mail' AS `E-Mail` FROM `tbl_lehrkraft``tbl_lehrkraft`  ;
 
 -- --------------------------------------------------------
 
@@ -311,7 +315,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `termin_informationen`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `termin_informationen`  AS SELECT `tbl_veranstaltung`.`Bezeichnung` AS `Veranstaltungs Bezeichnung`, `tbl_lehrkraft`.`Kuerzel` AS `Lehrkraft`, `tbl_raum`.`Raumnummer` AS `Raumnummer`, `tbl_termin`.`Terminbeginn` AS `Terminbeginn`, `tbl_termin`.`Terminende` AS `Terminende`, `tbl_termin`.`Sprechdauer` AS `Terminlänge`, `tbl_ansprechpartner`.`Vorname` AS `Vorname Ansprechpartner`, `tbl_ansprechpartner`.`Nachname` AS `Nachname Ansprechpartner`, `tbl_ansprechpartner`.`Mobilnummer` AS `Ansprechpartner Mobilnummer`, `tbl_schueler`.`Vorname` AS `Vorname Schueler`, `tbl_schueler`.`Nachname` AS `Nachname Schueler` FROM ((((((`tbl_termin` join `tbl_ansprechpartner` on(`tbl_termin`.`FK_ansprechpartner` = `tbl_ansprechpartner`.`PK_ansprechpartner`)) join `tbl_schueler` on(`tbl_schueler`.`FK_ansprechpartner` = `tbl_ansprechpartner`.`PK_ansprechpartner`)) join `tbl_lehrkraft_termin` on(`tbl_termin`.`PK_termin` = `tbl_lehrkraft_termin`.`FK_termin`)) join `tbl_lehrkraft` on(`tbl_lehrkraft_termin`.`FK_lehrkraft` = `tbl_lehrkraft`.`PK_lehrkraft`)) join `tbl_raum` on(`tbl_lehrkraft`.`FK_raum` = `tbl_raum`.`PK_raum`)) join `tbl_veranstaltung` on(`tbl_termin`.`FK_veranstaltung` = `tbl_veranstaltung`.`PK_veranstaltung`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `termin_informationen`  AS SELECT `tbl_veranstaltung`.`Bezeichnung` AS `Veranstaltungs Bezeichnung`, `tbl_lehrkraft`.`Kuerzel` AS `Lehrkraft`, `tbl_raum`.`Raumnummer` AS `Raumnummer`, `tbl_termin`.`Terminbeginn` AS `Terminbeginn`, `tbl_termin`.`Terminende` AS `Terminende`, `tbl_termin`.`Sprechdauer` AS `Terminlänge`, `tbl_ansprechpartner`.`Vorname` AS `Vorname Ansprechpartner`, `tbl_ansprechpartner`.`Nachname` AS `Nachname Ansprechpartner`, `tbl_ansprechpartner`.`Mobilnummer` AS `Ansprechpartner Mobilnummer`, `tbl_schueler`.`Vorname` AS `Vorname Schueler`, `tbl_schueler`.`Nachname` AS `Nachname Schueler` FROM ((((((`tbl_termin` join `tbl_ansprechpartner` on(`tbl_termin`.`FK_ansprechpartner` = `tbl_ansprechpartner`.`PK_ansprechpartner`)) join `tbl_schueler` on(`tbl_schueler`.`FK_ansprechpartner` = `tbl_ansprechpartner`.`PK_ansprechpartner`)) join `tbl_lehrkraft_termin` on(`tbl_termin`.`PK_termin` = `tbl_lehrkraft_termin`.`FK_termin`)) join `tbl_lehrkraft` on(`tbl_lehrkraft_termin`.`FK_lehrkraft` = `tbl_lehrkraft`.`PK_lehrkraft`)) join `tbl_raum` on(`tbl_lehrkraft`.`FK_raum` = `tbl_raum`.`PK_raum`)) join `tbl_veranstaltung` on(`tbl_termin`.`FK_veranstaltung` = `tbl_veranstaltung`.`PK_veranstaltung`))  ;
 
 --
 -- Indizes der exportierten Tabellen
@@ -321,7 +325,14 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- Indizes für die Tabelle `tbl_ansprechpartner`
 --
 ALTER TABLE `tbl_ansprechpartner`
-  ADD PRIMARY KEY (`PK_ansprechpartner`);
+  ADD PRIMARY KEY (`PK_ansprechpartner`),
+  ADD KEY `FK_benutzer` (`FK_benutzer`);
+
+--
+-- Indizes für die Tabelle `tbl_benutzer`
+--
+ALTER TABLE `tbl_benutzer`
+  ADD PRIMARY KEY (`PK_benutzer`);
 
 --
 -- Indizes für die Tabelle `tbl_gebaeude`
@@ -334,7 +345,8 @@ ALTER TABLE `tbl_gebaeude`
 --
 ALTER TABLE `tbl_lehrkraft`
   ADD PRIMARY KEY (`PK_lehrkraft`),
-  ADD KEY `FK_raum` (`FK_raum`);
+  ADD KEY `FK_raum` (`FK_raum`),
+  ADD KEY `FK_benutzer` (`FK_benutzer`);
 
 --
 -- Indizes für die Tabelle `tbl_lehrkraft_termin`
@@ -361,7 +373,8 @@ ALTER TABLE `tbl_schueler`
 -- Indizes für die Tabelle `tbl_schulleitung`
 --
 ALTER TABLE `tbl_schulleitung`
-  ADD PRIMARY KEY (`PK_schulleitung`);
+  ADD PRIMARY KEY (`PK_schulleitung`),
+  ADD KEY `FK_benutzer` (`FK_benutzer`);
 
 --
 -- Indizes für die Tabelle `tbl_termin`
@@ -436,10 +449,17 @@ ALTER TABLE `tbl_veranstaltung`
 --
 
 --
+-- Constraints der Tabelle `tbl_ansprechpartner`
+--
+ALTER TABLE `tbl_ansprechpartner`
+  ADD CONSTRAINT `tbl_ansprechpartner_ibfk_1` FOREIGN KEY (`FK_benutzer`) REFERENCES `tbl_benutzer` (`PK_benutzer`);
+
+--
 -- Constraints der Tabelle `tbl_lehrkraft`
 --
 ALTER TABLE `tbl_lehrkraft`
-  ADD CONSTRAINT `tbl_lehrkraft_ibfk_1` FOREIGN KEY (`FK_raum`) REFERENCES `tbl_raum` (`PK_raum`);
+  ADD CONSTRAINT `tbl_lehrkraft_ibfk_1` FOREIGN KEY (`FK_raum`) REFERENCES `tbl_raum` (`PK_raum`),
+  ADD CONSTRAINT `tbl_lehrkraft_ibfk_2` FOREIGN KEY (`FK_benutzer`) REFERENCES `tbl_benutzer` (`PK_benutzer`);
 
 --
 -- Constraints der Tabelle `tbl_lehrkraft_termin`
@@ -459,6 +479,12 @@ ALTER TABLE `tbl_raum`
 --
 ALTER TABLE `tbl_schueler`
   ADD CONSTRAINT `tbl_schueler_ibfk_1` FOREIGN KEY (`FK_ansprechpartner`) REFERENCES `tbl_ansprechpartner` (`PK_ansprechpartner`);
+
+--
+-- Constraints der Tabelle `tbl_schulleitung`
+--
+ALTER TABLE `tbl_schulleitung`
+  ADD CONSTRAINT `tbl_schulleitung_ibfk_1` FOREIGN KEY (`FK_benutzer`) REFERENCES `tbl_benutzer` (`PK_benutzer`);
 
 --
 -- Constraints der Tabelle `tbl_termin`
