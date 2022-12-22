@@ -61,6 +61,11 @@ try {
                 </div>
                 <hr>
                 <div class="d-flex justify-content-between">
+                    <label for="passwort">Passwort</label>
+                    <input type="text" name="passwort" id="passwort" required>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between">
                     <button type="button" onclick="window.location='SignIn.html'" value="Zurück">Zurück</button>
                     <button type="submit">Erstellen</button>
                 </div>

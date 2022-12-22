@@ -60,6 +60,11 @@ try {
                 </div>
                 <hr>
                 <div class="d-flex justify-content-between">
+                    <label for="passwort">Passwort</label>
+                    <input type="text" name="passwort" id="passwort" required>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between">
                     <label for="FK_raum">Raum</label>
                     <select  name="FK_raum" required>
                     <?php

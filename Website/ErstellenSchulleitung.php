@@ -1,21 +1,23 @@
 <?php
 @include 'conn.php';
 try {
-  $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-  // set the PDO error mode to exception
-  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  $stmt1 = $conn->prepare("INSERT INTO tbl_benutzer VALUES (Null, 4, :passwort, :Email)");
+  $stmt1->bindParam(':passwort', $_POST["passwort"]);
+  $stmt1->bindParam(':Email', $_POST["email"]);
+  $stmt1->execute();
 
-  print_r($_POST);
-  // prepare sql and bind parameters
-  $stmt = $conn->prepare("INSERT INTO tbl_schulleitung
-  VALUES (Null, :Kuerzel, :Geschlecht, :Email, :Vorname, :Nachname)");
-  $stmt->bindParam(':Kuerzel', $_POST["kuerzel"]);
-  $stmt->bindParam(':Geschlecht', $_POST["gechlecht"]);
-  $stmt->bindParam(':Email', $_POST["email"]);
-  $stmt->bindParam(':Vorname', $_POST["vorname"]);
-  $stmt->bindParam(':Nachname', $_POST["nachname"]);
-  $stmt->execute();
-  //redirects back to admin.php after creating raum
+  $benutzer_id = $conn->lastInsertId();
+
+  $stmt2 = $conn->prepare("INSERT INTO tbl_schulleitung
+  VALUES (Null, :Kuerzel, :Geschlecht, :Email, :Vorname, :Nachname, :benutzer_id)");
+  $stmt2->bindParam(':Kuerzel', $_POST["kuerzel"]);
+  $stmt2->bindParam(':Geschlecht', $_POST["geschlecht"]);
+  $stmt2->bindParam(':Email', $_POST["email"]);
+  $stmt2->bindParam(':Vorname', $_POST["vorname"]);
+  $stmt2->bindParam(':Nachname', $_POST["nachname"]);
+  $stmt2->bindParam(':benutzer_id', $benutzer_id);
+  $stmt2->execute();
+
   echo '<script>window.location.href = "Admin.php";</script>';
 } catch(PDOException $e) {
   echo "Error: " . $e->getMessage();

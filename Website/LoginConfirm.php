@@ -29,7 +29,7 @@ try {
             </button>
         </div>
         <?php
-            $stmt = $conn->prepare('select priorität, passwort FROM tbl_benutzer Where email="'.$_POST["email"].'"');
+            $stmt = $conn->prepare('select prioritaet, passwort FROM tbl_benutzer Where email="'.$_POST["email"].'"');
             $stmt->execute();
             $user = $stmt->fetch();
         ?>
@@ -42,22 +42,22 @@ try {
                         if($user["passwort"] == $_POST["passwort"]){
                             echo'
                                 <ul class="ml-5 my-2">';
-                                if($user["priorität"]>= 5){
+                                if($user["prioritaet"]>= 5){
                                     echo '<li class="my-4"><a href="Admin.php">Admin</a></li>';
                                 }
-                                if($user["priorität"]>= 4){
+                                if($user["prioritaet"]>= 4){
                                     echo ' <li class="my-4"><a href="SchulLeitung.php">Schulleitung</a></li>';
                                 }
-                                if($user["priorität"]>= 3){
+                                if($user["prioritaet"]>= 3){
                                     echo '
                                     <li class="my-4"><a href="Lehrer.php">Lehrer Termien Bestätigung</a></li>
                                     <li class="my-4"><a href="LehrerPause.html">Lehrer Eigen Termien vergabe</a></li>
                                     <li class="my-4"><a href="LehrerTerminView.php">Lehrer Termin Übersicht</a></li>';
                                 }
-                                if($user["priorität"]>= 2){
+                                if($user["prioritaet"]>= 2){
                                     echo ' <li class="my-4"><a href="Ansprechpartner.php">Vertreter</a></li>';
                                 }
-                                if($user["priorität"]<= 1){
+                                if($user["prioritaet"]<= 1){
                                     echo ' <li class="my-4"><h1 class="text-white">Keine Berrechtigung!</h1></li>';
                                 }
                             echo "</ul>";
