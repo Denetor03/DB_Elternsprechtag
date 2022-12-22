@@ -52,6 +52,16 @@ CREATE TABLE `lehrkraft_informationen` (
 -- --------------------------------------------------------
 
 --
+-- Tabellenstruktur für Tabelle `tbl_benutzer`
+--
+
+CREATE TABLE `tbl_benutzer` (
+  `PK_benutzer` int(11) NOT NULL,
+  `priotitaet` int(5) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `passwort` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- Tabellenstruktur für Tabelle `tbl_ansprechpartner`
 --
 
@@ -61,16 +71,17 @@ CREATE TABLE `tbl_ansprechpartner` (
   `Nachname` varchar(255) DEFAULT NULL,
   `Betriebsname` varchar(255) DEFAULT NULL,
   `E-Mail` varchar(255) DEFAULT NULL,
-  `Mobilnummer` varchar(255) DEFAULT NULL
+  `Mobilnummer` varchar(255) DEFAULT NULL,
+  `FK_benutzer` int(11)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Daten für Tabelle `tbl_ansprechpartner`
 --
 
-INSERT INTO `tbl_ansprechpartner` (`PK_ansprechpartner`, `Vorname`, `Nachname`, `Betriebsname`, `E-Mail`, `Mobilnummer`) VALUES
-(1, 'Peter', 'Schmitt', NULL, 'Peter.Shitt202@gmail.com', '1238/129416'),
-(2, 'Karla', 'Pastrani', 'Metzhein', 'Kar.la19247@web.de', '0124/129081');
+INSERT INTO `tbl_ansprechpartner` (`PK_ansprechpartner`, `Vorname`, `Nachname`, `Betriebsname`, `E-Mail`, `Mobilnummer`, `FK_benutzer`) VALUES
+(1, 'Peter', 'Schmitt', NULL, 'Peter.Shitt202@gmail.com', '1238/129416', null),
+(2, 'Karla', 'Pastrani', 'Metzhein', 'Kar.la19247@web.de', '0124/129081', null);
 
 -- --------------------------------------------------------
 
@@ -106,16 +117,17 @@ CREATE TABLE `tbl_lehrkraft` (
   `Vorname` varchar(255) DEFAULT NULL,
   `Nachname` varchar(255) DEFAULT NULL,
   `E-Mail` varchar(255) DEFAULT NULL,
-  `FK_raum` int(255) DEFAULT NULL
+  `FK_raum` int(255) DEFAULT NULL,
+  `FK_benutzer` int(11)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Daten für Tabelle `tbl_lehrkraft`
 --
 
-INSERT INTO `tbl_lehrkraft` (`PK_lehrkraft`, `Kuerzel`, `Geschlecht`, `Vorname`, `Nachname`, `E-Mail`, `FK_raum`) VALUES
-(1, 'Pac', 'Weiblich', 'Ingrid', 'Pachal', 'Pach.Ing@gmail.com', 1),
-(2, 'Ran', 'Männlich', 'Jakob', 'Rangmann', 'rang@web.de', 2);
+INSERT INTO `tbl_lehrkraft` (`PK_lehrkraft`, `Kuerzel`, `Geschlecht`, `Vorname`, `Nachname`, `E-Mail`, `FK_raum`,  `FK_benutzer`) VALUES
+(1, 'Pac', 'Weiblich', 'Ingrid', 'Pachal', 'Pach.Ing@gmail.com', 1, null),
+(2, 'Ran', 'Männlich', 'Jakob', 'Rangmann', 'rang@web.de', 2, null);
 
 -- --------------------------------------------------------
 
@@ -192,15 +204,16 @@ CREATE TABLE `tbl_schulleitung` (
   `Geschlecht` varchar(255) DEFAULT NULL,
   `E-Mail` varchar(255) DEFAULT NULL,
   `Vorname` varchar(255) DEFAULT NULL,
-  `Nachname` varchar(255) DEFAULT NULL
+  `Nachname` varchar(255) DEFAULT NULL,
+  `FK_benutzer` int(11)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Daten für Tabelle `tbl_schulleitung`
 --
 
-INSERT INTO `tbl_schulleitung` (`PK_schulleitung`, `Kuerzel`, `Geschlecht`, `E-Mail`, `Vorname`, `Nachname`) VALUES
-(1, 'Kar', 'Männlich', 'franz.kar@gmail.com', 'Fanz', 'Karling');
+INSERT INTO `tbl_schulleitung` (`PK_schulleitung`, `Kuerzel`, `Geschlecht`, `E-Mail`, `Vorname`, `Nachname`, `FK_benutzer`) VALUES
+(1, 'Kar', 'Männlich', 'franz.kar@gmail.com', 'Fanz', 'Karling', null);
 
 -- --------------------------------------------------------
 
@@ -297,12 +310,17 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 -- Indizes der exportierten Tabellen
 --
-
+--
+-- Indizes für die Tabelle `tbl_benutzer`
+--
+ALTER TABLE `tbl_benutzer`
+  ADD PRIMARY KEY (`PK_benutzer`);
 --
 -- Indizes für die Tabelle `tbl_ansprechpartner`
 --
 ALTER TABLE `tbl_ansprechpartner`
-  ADD PRIMARY KEY (`PK_ansprechpartner`);
+  ADD PRIMARY KEY (`PK_ansprechpartner`),
+  ADD KEY (`FK_benutzer`);
 
 --
 -- Indizes für die Tabelle `tbl_gebaeude`
@@ -315,7 +333,8 @@ ALTER TABLE `tbl_gebaeude`
 --
 ALTER TABLE `tbl_lehrkraft`
   ADD PRIMARY KEY (`PK_lehrkraft`),
-  ADD KEY `FK_raum` (`FK_raum`);
+  ADD KEY `FK_raum` (`FK_raum`),
+  ADD KEY (`FK_benutzer`);
 
 --
 -- Indizes für die Tabelle `tbl_lehrkraft_termin`
@@ -342,7 +361,8 @@ ALTER TABLE `tbl_schueler`
 -- Indizes für die Tabelle `tbl_schulleitung`
 --
 ALTER TABLE `tbl_schulleitung`
-  ADD PRIMARY KEY (`PK_schulleitung`);
+  ADD PRIMARY KEY (`PK_schulleitung`),
+  ADD KEY (`FK_benutzer`);
 
 --
 -- Indizes für die Tabelle `tbl_termin`
