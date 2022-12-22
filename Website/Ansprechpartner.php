@@ -35,8 +35,8 @@ try {
     </div>
     <div class="py-5 mt-5 d-flex justify-content-center" id="ansprechpartner">
         <div class="w-50">
-            <h1>Ansprechpartner</h1><hr>
-            <form action="ErstellenAnsprechpartner.php" method="post">
+             <!--<h1>Ansprechpartner</h1><hr>
+           <form action="ErstellenAnsprechpartner.php" method="post">
                 <div class="d-flex justify-content-between">
                     <label for="vorname">Vorname</label>
                     <input type="text" name="vorname">
@@ -66,7 +66,7 @@ try {
                     <button type="button" onclick="window.location='SignIn.html'" value="Zurück">Zurück</button>
                     <button type="submit">Erstellen</button>
                 </div>
-            </form>
+            </form>-->
             <h1>Wen vertreten sie?</h1><hr>
             <form action="ErstellenSchueler.php" method="post">
                 <div class="d-flex justify-content-between">
@@ -110,17 +110,7 @@ try {
                 </div>
             </form>
             <h1>Termin buchen</h1><hr>
-            <form action="ErstellenTermin.php" method="post">
-                <div class="d-flex justify-content-between">
-                    <label for="terminbeginn">Terminbeginn</label>
-                    <input type="datetime-local" name="terminbeginn">
-                </div>
-                <hr>
-                <div class="d-flex justify-content-between">
-                    <label for="terminende">Terminende</label>
-                    <input type="datetime-local" name="terminende">
-                </div>
-                <hr>
+            <form action="ErstellenTerminSub.php" method="post">
                 <div class="d-flex justify-content-between">
                     <label for="fk_lehrer">Lehrer</label>
                     <select  name="fk_lehrer" required>
