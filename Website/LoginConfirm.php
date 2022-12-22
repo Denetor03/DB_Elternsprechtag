@@ -29,38 +29,46 @@ try {
             </button>
         </div>
         <?php
-  $stmt = $conn->prepare('select priorität, passwort FROM tbl_benutzer Where email="'.$_POST["email"].'"');
-  $stmt->execute();
-  $user = $stmt->fetch();
-
-
-
-  if($user["passwort"] == $_POST["passwort"]){
-      echo'
+            $stmt = $conn->prepare('select priorität, passwort FROM tbl_benutzer Where email="'.$_POST["email"].'"');
+            $stmt->execute();
+            $user = $stmt->fetch();
+        ?>
         <div class="px-5" id="loginAsContainer">
             <div id="loginAs" class="w-75">
                 <h1 class=" m-0 my-5 px-5">Login as</h1>
                 <div id="loginAsLinks" class="py-5">
-                    <ul class="ml-5 my-2">';
-                    if($user["priorität"]>= 5){
-                        echo '<li class="my-4"><a href="Admin.php">Admin</a></li>';
+                <?php
+                    if(!empty($user) ){
+                        if($user["passwort"] == $_POST["passwort"]){
+                            echo'
+                                <ul class="ml-5 my-2">';
+                                if($user["priorität"]>= 5){
+                                    echo '<li class="my-4"><a href="Admin.php">Admin</a></li>';
+                                }
+                                if($user["priorität"]>= 4){
+                                    echo ' <li class="my-4"><a href="SchulLeitung.php">Schulleitung</a></li>';
+                                }
+                                if($user["priorität"]>= 3){
+                                    echo '
+                                    <li class="my-4"><a href="Lehrer.php">Lehrer Termien Bestätigung</a></li>
+                                    <li class="my-4"><a href="LehrerPause.html">Lehrer Eigen Termien vergabe</a></li>
+                                    <li class="my-4"><a href="LehrerTerminView.php">Lehrer Termin Übersicht</a></li>';
+                                }
+                                if($user["priorität"]>= 2){
+                                    echo ' <li class="my-4"><a href="Ansprechpartner.php">Vertreter</a></li>';
+                                }
+                                if($user["priorität"]<= 1){
+                                    echo ' <li class="my-4"><h1 class="text-white">Keine Berrechtigung!</h1></li>';
+                                }
+                            echo "</ul>";
+                        }
                     }
-                    echo'
-                        <li class="my-4"><a href="Ansprechpartner.php">Vertreter</a></li>
-                        <li class="my-4"><a href="Lehrer.php">Lehrer Termien Bestätigung</a></li>
-                        <li class="my-4"><a href="LehrerPause.html">Lehrer Eigen Termien vergabe</a></li>
-                        <li class="my-4"><a href="SchulLeitung.php">Schulleitung</a></li>
-                        <li class="my-4"><a href="LehrerTerminView.php">Lehrer Termin Übersicht</a></li>
-                       
-                    </ul>
-                </div>
+                    else{
+                        echo '<div class="p-5"><h1>Benutzer nicht gefunden</h1></div>';
+                    }
+                    ?>
             </div>
         </div>
-      ';
-  }
-
-?>
-        
     </div>
 </body>
 </html>

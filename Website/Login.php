@@ -25,11 +25,15 @@
                 <h1 class=" m-0 my-5 px-5">Login</h1>
                 <div id="loginAsLinks" class="p-5">
                     <form action="LoginConfirm.php" method="post">
-                        <input type="text" name="email">
+                        <input type="text" name="email" required>
                         <br>
-                        <input type="password" name="passwort">
+                        <input type="password" name="passwort" required>
                         <br>
-                        <button>Login</button>
+                        <div class="d-flex justify-content-between px-4">
+                            <button type="button"  onclick="window.location='signup.php'">Signup</button>
+                            <button >Login</button>
+                        </div>
+                        
                     </form>
                 </div>
             </div>
