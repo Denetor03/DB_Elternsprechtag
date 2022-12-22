@@ -30,7 +30,8 @@ try {
             </button>
         </div>
     </div>
-    <div class="py-5 mt-5 d-flex justify-content-center">
+    <div class="py-5 mt-5 ">
+        <div class="w-100 px-5"><h1> Ausstehende anfragen </h1></div>
         <table id="termine">
         <tr>
 
@@ -38,31 +39,69 @@ try {
             <th>Anfang</th>
             <th>Ende</th>
             <th>Vertreter</th>
-            <th>A</th>
+            <th>andere</th>
         </tr>
             <?php
             $stmt = $conn->prepare('
-                SELECT Sprechdauer, Terminbeginn, Terminende, tbl_lehrkraft.Vorname AS "Lehkraft-Vorname", tbl_lehrkraft.Nachname, tbl_ansprechpartner.Vorname, tbl_ansprechpartner.Nachname
+                SELECT PK_termin, PK_lehrkraft, Sprechdauer, Terminbeginn, Terminende, tbl_lehrkraft.Vorname AS "Lehkraft-Vorname", tbl_lehrkraft.Nachname, tbl_ansprechpartner.Vorname, tbl_ansprechpartner.Nachname
                 FROM tbL_termin
                 JOIN tbl_lehrkraft ON PK_lehrkraft = FK_lehrkraft
                 JOIN tbl_ansprechpartner ON PK_ansprechpartner = FK_ansprechpartner
+                WHERE PK_termin NOT IN (SELECT FK_termin FROM tbl_lehrkraft_termin)
+              
             ');
             $stmt -> execute();
 
             while($row = $stmt->fetch()){?>
                 <tr>
   
-                    <?= "<td>".$row["Sprechdauer"]."</td>";?>
+                    <?= "<td>".$row["Sprechdauer"].$row["PK_termin"]."</td>";?>
                     <?= "<td>".$row["Terminbeginn"]."</td>";?>
                     <?= "<td>".$row["Terminende"]."</td>";?>
                     <?= "<td>".$row["Vorname"]." ".$row["Nachname"]."</td>";?>
-                    <?= '<td><form><button value="">Annehmen</button><button>Ablehnen</button<form></td>';?>
+                    <?= '<td>
+                        <form action="TerminAkzeptieren.php" method="post">
+                            <input type="hidden" name="PK_termin" value="'.$row["PK_termin"].'">
+                            <input type="hidden" name="PK_lehrkraft" value="'.$row["PK_lehrkraft"].'">
+                            <button type="submit" name="submit" value="1">Annehmen</button>
+                            <button type="submit" name="submit" value="0">Ablehnen</button>
+                        <form>
+                    </td>';?>
                 </tr>
+                <?php
+            }
+?>
+        </table>
 
-                <select>
-                    <option>
-                </select>
 
+        <hr>
+        <div class="w-100 px-5"><h1> Termine </h1></div>
+        <table id="termine">
+        <tr>
+
+            <th>Dauer</th>
+            <th>Anfang</th>
+            <th>Ende</th>
+            <th>Vertreter</th>
+        </tr>
+            <?php
+            $stmt = $conn->prepare('
+            SELECT PK_termin, PK_lehrkraft, Sprechdauer, Terminbeginn, Terminende, tbl_lehrkraft.Vorname AS "Lehkraft-Vorname", tbl_lehrkraft.Nachname, tbl_ansprechpartner.Vorname, tbl_ansprechpartner.Nachname
+            FROM tbL_termin
+            JOIN tbl_lehrkraft ON PK_lehrkraft = FK_lehrkraft
+            JOIN tbl_ansprechpartner ON PK_ansprechpartner = FK_ansprechpartner
+            WHERE PK_termin IN (SELECT FK_termin FROM tbl_lehrkraft_termin)
+            ');
+            $stmt -> execute();
+
+            while($row = $stmt->fetch()){?>
+                <tr>
+  
+                <?= "<td>".$row["Sprechdauer"].$row["PK_termin"]."</td>";?>
+                    <?= "<td>".$row["Terminbeginn"]."</td>";?>
+                    <?= "<td>".$row["Terminende"]."</td>";?>
+                    <?= "<td>".$row["Vorname"]." ".$row["Nachname"]."</td>";?>
+                </tr>
                 <?php
             }
             $stmt = $conn->prepare('
@@ -83,7 +122,6 @@ try {
                 <?php
             } ?>
         </table>
-        <hr>
     </div>
 </body>
 </html>

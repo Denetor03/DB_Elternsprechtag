@@ -122,3 +122,12 @@ ul {
     margin-left: 10px;
     margin-right: 10px;
 }
+
+#termine  td button{
+    background-color: #3c3c3c;
+    color: white;
+    border-color: #303030;
+    border-radius: 30%;
+    padding-left: 3%;
+    padding-right: 3%;
+}
